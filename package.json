@@ -1,0 +1,32 @@
+{
+  "name": "paj",
+  "version": "0.1.0",
+  "description": "pick a job",
+  "private": true,
+  "author": "Meni",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node pick-a-job-backend/server",
+    "server": "nodemon pick-a-job-backend/server",
+    "server:debug": "nodemon --inspect pick-a-job-backend/server",
+    "client": "npm start --prefix pick-a-job-frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "debug": "concurrently \"npm run server:debug\" \"npm run client\"",
+    "data:import": "node pick-a-job-backend/seeder",
+    "data:destroy": "node pick-a-job-backend/seeder -d"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.11"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.7",
+    "redux-logger": "^3.0.6"
+  }
+}

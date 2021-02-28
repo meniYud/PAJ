@@ -1,6 +1,17 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
+const relatedEntitiesSchema = mongoose.Schema({
+    company: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Company',
+        required: true
+    }
+}, {
+    timestamps: false,
+    _id : false
+})
+
 const userSchema = mongoose.Schema({
     name: {
         type: String,
@@ -15,10 +26,14 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    isAdmin: {
-        type: Boolean,
-        required: true,
-        default: false
+    role: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Role',
+        required: true
+    },
+    relatedEntities: {
+        type: relatedEntitiesSchema,
+        required: false
     }
 }, {
     timestamps: true

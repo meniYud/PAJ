@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
-import productRoutes from './routes/productRoutes.js';
+import positionsRoutes from './positions/positionsRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
 dotenv.config();
@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     res.send('API is running')
 });
 
-app.use('/api/products', productRoutes);
+app.use('/api/positions', positionsRoutes);
 app.use('/api/users', userRoutes);
 
 app.use(notFound)

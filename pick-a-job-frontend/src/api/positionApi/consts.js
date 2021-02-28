@@ -1,9 +1,0 @@
-const positionListActions = {
-    POSITION_LIST_FAIL: 'POSITION_LIST_FAIL',
-    POSITION_LIST_SUCCESS: 'POSITION_LIST_SUCCESS',
-    POSITION_LIST_REQUEST: 'POSITION_LIST_REQUEST'
-};
-
-export {
-    positionListActions
-};

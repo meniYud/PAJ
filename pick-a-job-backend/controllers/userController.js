@@ -1,6 +1,10 @@
 import asyncHandler from 'express-async-handler'
 import generateToken from '../utils/generateToken.js';
 import User from '../models/userModel.js'
+import Role from '../models/roleModel.js';
+
+
+import { enrichUserData } from '../middleware/userDataEnrich.js'
 
 // @desc    Auth the user & get token
 // @route   POST /api/users/login
@@ -10,18 +14,22 @@ const authUser = asyncHandler(async (req, res) => {
 
     const user = await User.findOne({ email });
 
-    if (user && (await user.matchPassword(password))) {
+    if (user && user.role && (await user.matchPassword(password))) {
+        const enrichedUser = await enrichUserData(user);
+
         res.json({
             _id: user._id,
             name: user.name,
             email: user.email,
-            isAdmin: user.isAdmin,
+            role: enrichedUser.role,
+            relatedEntities: enrichedUser.relatedEntities,
             token: generateToken(user._id)
         })
     } else {
         res.status(401);
         throw new Error('Invalid email or password')
     }
+
 })
 
 
@@ -31,12 +39,13 @@ const authUser = asyncHandler(async (req, res) => {
 const getUserProfile = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id)
 
-    if (user) {
+    if (user && user.role) {
+        const userRole = await Role.findById(user.role)
         res.json({
             _id: user._id,
             name: user.name,
             email: user.email,
-            isAdmin: user.isAdmin
+            role: userRole.name
         })
     } else {
         res.status(404)
@@ -45,10 +54,11 @@ const getUserProfile = asyncHandler(async (req, res) => {
 });
 
 // @desc    Register a new user
-// @route   GET /api/users
+// @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password } = req.body;
+    const { askToCreateProps } = req;
 
     const userExist = await User.findOne({ email });
 
@@ -60,7 +70,8 @@ const registerUser = asyncHandler(async (req, res) => {
     const user = await User.create({
         name,
         email,
-        password
+        password,
+        role: askToCreateProps._id
     })
 
     if (user) {
@@ -68,7 +79,7 @@ const registerUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
-            isAdmin: user.isAdmin,
+            role: user.role,
             token: generateToken(user._id)
         })
     } else {
@@ -96,7 +107,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             _id: updatedUser._id,
             name: updatedUser.name,
             email: updatedUser.email,
-            isAdmin: updatedUser.isAdmin,
+            role: updatedUser.role,
             token: generateToken(updatedUser._id)
         })
     } else {

@@ -9,8 +9,10 @@
   "scripts": {
     "start": "node pick-a-job-backend/server",
     "server": "nodemon pick-a-job-backend/server",
+    "server:debug": "nodemon --inspect pick-a-job-backend/server",
     "client": "npm start --prefix pick-a-job-frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "debug": "concurrently \"npm run server:debug\" \"npm run client\"",
     "data:import": "node pick-a-job-backend/seeder",
     "data:destroy": "node pick-a-job-backend/seeder -d"
   },

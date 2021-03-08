@@ -58,7 +58,7 @@ export default function LoginScreen({ location, history }) {
                                 </Form.Control>
                             </Form.Group>
                 
-                            <Button type='submit' varriant='primary'>
+                            <Button type='submit' variant='primary'>
                                 Sign In
                             </Button>
                         </Form>

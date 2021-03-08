@@ -1,11 +1,18 @@
 import axios from 'axios';
-import { positionListActions } from './consts';
+import { positionListActions, positionActions } from './consts';
+import {positionsAggregator} from './positionsDataTransformer';
 
 const {
     POSITION_LIST_FAIL,
     POSITION_LIST_SUCCESS,
     POSITION_LIST_REQUEST,
 } = positionListActions;
+
+const {
+    UPDATE_POSITION_REQUEST,
+    UPDATE_POSITION_SUCCESS,
+    UPDATE_POSITION_FAIL,
+} = positionActions;
 
 
 export const listPositions = (companyID = null) => async (dispatch) => {
@@ -16,7 +23,7 @@ export const listPositions = (companyID = null) => async (dispatch) => {
 
         dispatch({
             type: POSITION_LIST_SUCCESS,
-            payload: data
+            payload: positionsAggregator(data)
         })
     } catch (error) {
         dispatch({
@@ -28,4 +35,71 @@ export const listPositions = (companyID = null) => async (dispatch) => {
         })
     }
 }
+
+export const updatePositionByPositionID = (positionID, payload) => async (dispatch, getState) => {
+    try {
+        const url = `/api/positions/${positionID}`;
+        const { userLogin: { userInfo } } = getState();
+        dispatch({
+            type: UPDATE_POSITION_REQUEST,
+            payload: {id: positionID}
+        })
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data = {} } = await axios.put(url, payload, config);
+
+        dispatch({
+            type: UPDATE_POSITION_SUCCESS,
+            payload: {id: positionID, data}
+        });
+    } catch (error) {
+        dispatch({
+            type: UPDATE_POSITION_FAIL,
+            payload: {id: positionID, error: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message}
+                
+        })
+    }
+}
+
+export const deletePositionByID = (positionID, payload) => async (dispatch, getState) => {
+    try {
+        const url = `/api/positions/${positionID}`;
+        const { userLogin: { userInfo } } = getState();
+        dispatch({
+            type: UPDATE_POSITION_REQUEST,
+            payload: {id: positionID}
+        })
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data = {} } = await axios.put(url, {...payload, positionStatus: 'DELETED'}, config);
+
+        dispatch({
+            type: UPDATE_POSITION_SUCCESS,
+            payload: {id: positionID, data}
+        });
+    } catch (error) {
+        dispatch({
+            type: UPDATE_POSITION_FAIL,
+            payload: {id: positionID, error: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message}
+                
+        })
+    }
+}
+
 

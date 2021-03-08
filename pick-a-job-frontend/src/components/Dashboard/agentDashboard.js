@@ -1,40 +1,59 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col } from 'react-bootstrap';
-import { listProducts } from '../api/productApi/actions'
-import Product from '../components/Product';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
+import React, { useEffect, useState } from 'react';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Row, Nav, Col } from 'react-bootstrap';
+import PositionList, { CreatePosition } from '../PositionsList'
 
 
-const HomeScreen = () => {
-    const dispatch = useDispatch();
-    const productList = useSelector(state => state.productList);
-    const { loading, error, products = [] } = productList;
+const AgentDashboard = (props) => {
+    const { userInfo: { name: agentName, relatedEntities: { company } } } = props;
+    const [addingPosition, setAddingPosition] = useState(false);
 
     useEffect(() => {
-        dispatch(listProducts());
-    }, [dispatch]);
+        
+    }, []);
+
+    const onCreatePosition = (e) => {
+        e.stopPropagation()
+        if (!addingPosition) {
+            setAddingPosition(true);
+        }
+    }
+
+    const removeCreatePosition = () => {
+        if (addingPosition) {
+            setAddingPosition(false);
+        }
+    }
+
+    const createPositionProps = {
+        agentName: agentName,
+        company: company,
+        removeCreatePosition,
+    };
+
+    const editPositionProps = {
+        enableUpdatePosition: true,
+        enableDeletePosition: true,
+        enablePromotePosition: false,
+        showReward: true,
+        company: company,
+        agentName: agentName,
+    };
 
     return (
         <>
-            <h1>latest products</h1>
-            {loading
-                ? <Loader />
-                : (error
-                    ? <Message variant='danger'>{error}</Message>
-                    : <Row>
-                        {
-                            products.map(product => (
-                                <Col key={product._id} sm={12} md={6} lg={4}>
-                                    <Product product={product} />
-                                </Col>
-                            ))
-                        }
-                    </Row>)
-            }
+            <Row>
+                <Col><h3>Agent Dashboard</h3></Col>
+                <Col md={{ span: 4, offset: 4 }}>
+                    <div onClick={(e) => onCreatePosition(e)}>
+                        <i className="fas fa-plus-circle fa-3x"></i>
+                    </div>
+                </Col>
+            </Row>
+            {addingPosition && <CreatePosition {...createPositionProps} />}
+            <PositionList company={company} positionProps={editPositionProps} />
         </>
     );
 }
 
-export default HomeScreen;
+export default AgentDashboard;

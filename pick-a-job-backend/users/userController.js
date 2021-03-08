@@ -4,7 +4,7 @@ import User from '../models/userModel.js'
 import Role from '../models/roleModel.js';
 
 
-import { enrichUserData } from '../middleware/userDataEnrich.js'
+import { enrichUserData } from './userDataEnrich.js'
 
 // @desc    Auth the user & get token
 // @route   POST /api/users/login
@@ -21,7 +21,8 @@ const authUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
-            role: enrichedUser.role,
+            role: enrichedUser.role.name,
+            isUsersAdmin: enrichedUser.role.userCreator.isCreator,
             relatedEntities: enrichedUser.relatedEntities,
             token: generateToken(user._id)
         })

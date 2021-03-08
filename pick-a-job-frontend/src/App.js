@@ -10,7 +10,7 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import UserListScreen from './screens/UserListScreen';
-import DashboardScreen from './screens/DashboardScreen';
+import DashboardScreen from './components/Dashboard/Dashboard.component';
 import './App.css';
 
 

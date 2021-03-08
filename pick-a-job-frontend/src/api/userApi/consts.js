@@ -19,6 +19,17 @@ const userActions = {
     USER_LIST_RESET: 'USER_LIST_RESET',
 };
 
+const userRoles = {
+    GUEST: 'GUEST',
+    STAR: 'STAR',
+    SUPERSTAR: 'SUPERSTAR',
+    COMPANYAGENT: 'COMPANYAGENT',
+    COMPANYADMIN: 'COMPANYADMIN',
+    PAJ: 'PAJ',
+    PAJADMIN: 'PAJADMIN'
+};
+
 export {
-    userActions
+    userActions,
+    userRoles
 };

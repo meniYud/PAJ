@@ -9,7 +9,7 @@ const relatedEntitiesSchema = mongoose.Schema({
     }
 }, {
     timestamps: false,
-    _id : false
+    _id : false,
 })
 
 const userSchema = mongoose.Schema({

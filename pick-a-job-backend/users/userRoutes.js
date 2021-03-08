@@ -1,6 +1,6 @@
 import express from 'express';
-import { authUser, getUserProfile, registerUser, updateUserProfile, getUsers } from '../controllers/userController.js'
-import { protect, adminProtect, roleCreatorProtect } from '../middleware/authMiddleware.js'
+import { authUser, getUserProfile, registerUser, updateUserProfile, getUsers } from './userController.js'
+import { protect, adminProtect, roleCreatorProtect } from './authMiddleware.js'
 const router = express.Router()
 
 router.route('/').post(roleCreatorProtect, registerUser).get(protect, adminProtect, getUsers);

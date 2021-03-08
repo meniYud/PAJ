@@ -12,7 +12,8 @@ const PositionStatus = {
     ACTIVE: 'active',
     SUSPENDED: 'suspended',
     CANCELED: 'canceled',
-    FULFILLED: 'fulfilled'
+    FULFILLED: 'fulfilled',
+    DELETED: 'deleted'
 }
 
 // aggregateRoles receives no arguments and returns array of all roles

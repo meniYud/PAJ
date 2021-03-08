@@ -4,6 +4,13 @@ const positionListActions = {
     POSITION_LIST_REQUEST: 'POSITION_LIST_REQUEST'
 };
 
+const positionActions = {
+    UPDATE_POSITION_FAIL: 'UPDATE_POSITION_FAIL',
+    UPDATE_POSITION_SUCCESS: 'UPDATE_POSITION_SUCCESS',
+    UPDATE_POSITION_REQUEST: 'UPDATE_POSITION_REQUEST'
+}
+
 export {
-    positionListActions
+    positionListActions,
+    positionActions
 };

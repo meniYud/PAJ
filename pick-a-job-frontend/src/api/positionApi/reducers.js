@@ -10,6 +10,9 @@ const {
     UPDATE_POSITION_REQUEST,
     UPDATE_POSITION_SUCCESS,
     UPDATE_POSITION_FAIL,
+    CREATE_POSITION_REQUEST,
+    CREATE_POSITION_SUCCESS,
+    CREATE_POSITION_FAIL
 } = positionActions;
 
 const initialState = {
@@ -21,10 +24,14 @@ const initialState = {
 
 
 export const positionListReducer = (state = { ...initialState }, action) => {
-    const {positionsData = {}} = state;
+    const {positionsData} = state;
     let id;
+    // let enhancedIdsArray = [];
+    const {ids, positions} = positionsData;
     if (action?.payload?.id) {
         id = action?.payload?.id;
+        // ids.push(id)
+        // enhancedIdsArray = [...new Set(ids)];
     }
 
     switch(action.type) {
@@ -35,11 +42,23 @@ export const positionListReducer = (state = { ...initialState }, action) => {
         case POSITION_LIST_FAIL:
             return { ...state, loading: false, positionsData, error: action.payload };
         case UPDATE_POSITION_REQUEST:
-            return { ...state, positionsData: {...positionsData, positions: {...positionsData.positions, [id]: {loading: true}}} };
+            return { ...state, positionsData: {...positionsData, positions: {...positions, [id]: {loading: true}}} };
         case UPDATE_POSITION_SUCCESS:
-            return { ...state, positionsData: {...positionsData, positions: {...positionsData.positions, [id]: {loading: false, data: action.payload.data}}} };
+            return { ...state, positionsData: {...positionsData, positions: {...positions, [id]: {loading: false, data: action.payload.data}}} };
         case UPDATE_POSITION_FAIL:
-            return { ...state, positionsData: {...positionsData, positions: {...positionsData.positions, [id]: {loading: false, data: action.payload.error}}} };
+            return { ...state, positionsData: {...positionsData, positions: {...positions, [id]: {loading: false, data: action.payload.error}}} };
+        // case CREATE_POSITION_REQUEST:
+        //     return { ...state, positionsData: {ids: enhancedIdsArray, positions: {...positionsData.positions, [id]: {loading: true}}} };
+        // case CREATE_POSITION_SUCCESS:
+        //     return { ...state, positionsData: {ids: enhancedIdsArray, positions: {...positionsData.positions, [id]: {loading: false, data: action.payload.data}}} };
+        // case CREATE_POSITION_FAIL:
+        //     return { ...state, positionsData: {ids: enhancedIdsArray, positions: {...positionsData.positions, [id]: {loading: false, data: action.payload.error}}} };
+        case CREATE_POSITION_REQUEST:
+            return { ...state };
+        case CREATE_POSITION_SUCCESS:
+            return { ...state };
+        case CREATE_POSITION_FAIL:
+            return { ...state };
         default:
             return {...state};
     }

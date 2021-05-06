@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ListGroup, Col } from 'react-bootstrap';
 import { listPositions } from '../../api/positionApi/actions'
-import {Position} from './';
+import Position from './Position';
 import Loader from '../Loader';
 import Message from '../Message';
 
@@ -21,6 +21,11 @@ const PositionslistComponent = (props) => {
         if(shouldReloadData) {
             dispatch(action);
         }
+        // if(company && company._id) {
+        //     dispatch(listPositions(company._id));
+        // } else {
+        //     dispatch(listPositions());
+        // }
         setShouldReloadData(false);
     }, [dispatch, company, shouldReloadData]);
 

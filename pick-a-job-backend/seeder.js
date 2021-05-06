@@ -4,33 +4,16 @@ import users from './data/users.js'
 import roles from './data/roles.js'
 import companies from './data/companies.js'
 import positions from './data/positions.js'
-import stars from './data/stars.js'
 import User from './models/userModel.js'
 import Product from './models/ProductModel.js'
 import Order from './models/OrderModel.js'
 import Role from './models/roleModel.js'
 import Company from './models/companyModel.js'
 import Position from './models/positionModel.js'
-import Star from './models/starModel.js'
 import connectDB from './config/db.js'
 
 dotenv.config();
 connectDB();
-
-const importStars = async () => {
-    try {
-        await Star.deleteMany();
-        const createdStars = await Star.insertMany(stars);
-
-        console.log(createdStars)
-
-        process.exit()
-
-    } catch(error) {
-        console.error(`${error}`)
-        process.exit(1)
-    }
-}
 
 const importPositions = async () => {
     try {
@@ -117,10 +100,9 @@ const importData = async () => {
         // await Product.deleteMany();
  
         // await importRoles();
-        // await importUsers();
+        await importUsers();
         // await importCompanies();
         // await importPositions();
-        await importStars();
         
         console.log('data imported');
         

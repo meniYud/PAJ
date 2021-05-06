@@ -152,7 +152,7 @@ export const promotePositionByID = (positionID) => async (dispatch, getState) =>
             }
         }
 
-        const { data = {} } = await axios.put(url, payload, config);
+        const { data = {} } = await axios.put(url, {}, config);
 
         dispatch({
             type: UPDATE_POSITION_SUCCESS,

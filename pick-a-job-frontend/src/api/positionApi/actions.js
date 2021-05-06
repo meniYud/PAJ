@@ -102,4 +102,3 @@ export const deletePositionByID = (positionID, payload) => async (dispatch, getS
     }
 }
 
-

@@ -5,7 +5,7 @@ import PositionList, { CreatePosition } from '../PositionsList'
 
 
 const AgentDashboard = (props) => {
-    const { userInfo: { name: agentName, relatedEntities: { company } } } = props;
+    const { userInfo: { _id, name: agentName, relatedEntities: { company } } } = props;
     const [addingPosition, setAddingPosition] = useState(false);
 
     useEffect(() => {
@@ -27,6 +27,7 @@ const AgentDashboard = (props) => {
 
     const createPositionProps = {
         agentName: agentName,
+        agentID: _id,
         company: company,
         removeCreatePosition,
     };

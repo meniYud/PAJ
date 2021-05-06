@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { Card, Row, Col } from 'react-bootstrap';
-import {updatePositionByPositionID, deletePositionByID, promotePositionByID} from '../../api/positionApi/actions';
+import {updatePositionByPositionID, deletePositionByID} from '../../api/positionApi/actions';
 import Loader from '../Loader';
-import {CreatePosition} from './';
+import CreatePosition from './CreatePosition';
+
+// deletePositionByPositionID,
+//         updatePositionByPositionID
 
 const Position = ({positionID, positionProps}) => {
 
@@ -16,7 +19,13 @@ const Position = ({positionID, positionProps}) => {
     const [loadingPosition, setLoadingPosition] = useState(false);
     const [updatedPosition, setUpdatedPosition] = useState(position.data || {});
 
-    const {positionName, subPositionName, positionDisplayId, positionDescription, positionLocation, requiredExperience, offeredReward , _id, offeringCompany} = updatedPosition;
+    const {positionName, subPositionName, positionDisplayId, positionDescription, positionLocation, requiredExperience, offeredReward , _id} = updatedPosition;
+
+    
+
+    useEffect(() => {
+
+    }, [])
 
     useEffect(() => {
         if(position?.loading && !loadingPosition) {
@@ -37,30 +46,25 @@ const Position = ({positionID, positionProps}) => {
         e.stopPropagation();
         setEditPosition(true);
     };
-    
+    const onDeletePosition = (e) => {
+        e.stopPropagation();
+    };
     const onPromotePosition = (e) => {
         e.stopPropagation();
     };
 
-    const handleSubmitUpdatedPosition = async (payload) => {
-        await dispatch(updatePositionByPositionID(_id, payload));
+    const handleSubmitUpdatedPosition = (payload) => {
+        dispatch(updatePositionByPositionID(_id, payload));
     }
 
-    const handleSubmitDeletedPosition = async (e) => {
-        e.stopPropagation();
-        await dispatch(deletePositionByID(_id, updatedPosition));
-        reloadData();
-    }
-    
-    const handleSubmitPromotePosition = async (e) => {
-        e.stopPropagation();
-        await dispatch(promotePositionByID(_id));
+    const handleSubmitDeletedPosition = async (payload) => {
+        await dispatch(deletePositionByID(_id, payload));
         reloadData();
     }
 
     const editPositionProps = {
         initialData: {
-            positionDisplayId: positionDisplayId,
+            displayID: positionDisplayId,
             positionName: positionName,
             subPositionName: subPositionName,
             positionDescription: positionDescription,
@@ -70,7 +74,6 @@ const Position = ({positionID, positionProps}) => {
         },
         company,
         agentName,
-        agentID: _id,
         title: 'update position',
         removeCreatePosition: () => setEditPosition(false),
         handleSubmit: (payload) => handleSubmitUpdatedPosition(payload),
@@ -95,7 +98,7 @@ const Position = ({positionID, positionProps}) => {
                         {positionActions}
                     </Col>
                 </Row>
-                <Card.Subtitle className="mb-2 text-muted">{offeringCompany.companyName}</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted">{company.companyName}</Card.Subtitle>
                 <Card.Text>{subPositionName}</Card.Text>
             </Card.Body>
         </Card>

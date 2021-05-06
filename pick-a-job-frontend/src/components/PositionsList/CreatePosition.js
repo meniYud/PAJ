@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 import { Card, Row, Col, Button, Form, Container } from 'react-bootstrap';
-import { createNewPosition, listPositions } from '../../api/positionApi/actions';
 
 export default function CreatePosition(props) {
     const {
         company = {},
         agentName = '',
-        agentID = '',
         removeCreatePosition,
         initialData = {},
-        handleSubmit,
+        handleSubmit = () => {},
         title = 'Create New Position' } = props;
-
-    const [positionDisplayId, setPositionDisplayId] = useState(initialData?.positionDisplayId || '');
+    
+    const [displayID, setDisplayID] = useState(initialData?.displayID || '');
     const [positionName, setPositionName] = useState(initialData?.positionName || '');
     const [subPositionName, setSubPositionName] = useState(initialData?.subPositionName || '');
     const [positionDescription, setPositionDescription] = useState(initialData?.positionDescription || '');
@@ -21,15 +18,11 @@ export default function CreatePosition(props) {
     const [requiredExperience, setRequiredExperience] = useState(initialData?.requiredExperience || '');
     const [offeredReward, setOfferedReward] = useState(initialData?.offeredReward || 0);
 
-    const dispatch = useDispatch();
-
-    const onSubmit = async (e) => {
+    const onSubmit = (e) => {
         e.stopPropagation();
         e.preventDefault();
         const payload = {
-            offeringCompany: company._id,
-            offeringAgent: agentID,
-            positionDisplayId,
+            displayID,
             positionName,
             subPositionName,
             positionDescription,
@@ -37,23 +30,14 @@ export default function CreatePosition(props) {
             requiredExperience,
             offeredReward
         };
-        if (handleSubmit) {
-            await handleSubmit(payload)
-        } else {
-            await dispatch(createNewPosition(payload))
-        }
-        await dispatch(listPositions(company._id))
+        handleSubmit(payload);
+        console.log('submitted');
+        removeCreatePosition();
     }
 
     const handleClear = (e) => {
         e.stopPropagation();
-        setPositionDisplayId('');
-        setPositionName('');
-        setSubPositionName('');
-        setPositionDescription('');
-        setPositionLocation('');
-        setRequiredExperience('');
-        setOfferedReward(0);
+        console.log('cleared');
     }
 
 
@@ -83,7 +67,7 @@ export default function CreatePosition(props) {
                             Display ID
                         </Form.Label>
                         <Col sm="10">
-                            <Form.Control type="text" defaultValue={positionDisplayId} onChange={(e) => { setPositionDisplayId(e?.target?.value) }} />
+                            <Form.Control type="text" defaultValue={displayID} onChange={(e) => {setDisplayID(e?.target?.value)}} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formtextPositionName">
@@ -91,7 +75,7 @@ export default function CreatePosition(props) {
                             Position Name
                         </Form.Label>
                         <Col sm="10">
-                            <Form.Control type="text" defaultValue={positionName} onChange={(e) => { setPositionName(e?.target?.value) }} />
+                            <Form.Control type="text" defaultValue={positionName} onChange={(e) => {setPositionName(e?.target?.value)}} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formtextSubPositionName">
@@ -99,7 +83,7 @@ export default function CreatePosition(props) {
                             Sub Position Name
                         </Form.Label>
                         <Col sm="10">
-                            <Form.Control type="text" defaultValue={subPositionName} onChange={(e) => { setSubPositionName(e?.target?.value) }} />
+                            <Form.Control type="text" defaultValue={subPositionName} onChange={(e) => {setSubPositionName(e?.target?.value)}} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formtextPositionDescription">
@@ -107,7 +91,7 @@ export default function CreatePosition(props) {
                             Position Description
                         </Form.Label>
                         <Col sm="10">
-                            <Form.Control as="textarea" rows={3} defaultValue={positionDescription} onChange={(e) => { setPositionDescription(e?.target?.value) }} />
+                            <Form.Control as="textarea" rows={3} defaultValue={positionDescription} onChange={(e) => {setPositionDescription(e?.target?.value)}} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formtextPositionLocation">
@@ -115,7 +99,7 @@ export default function CreatePosition(props) {
                             Position Location
                         </Form.Label>
                         <Col sm="10">
-                            <Form.Control type="text" defaultValue={positionLocation} onChange={(e) => { setPositionLocation(e?.target?.value) }} />
+                            <Form.Control type="text" defaultValue={positionLocation} onChange={(e) => {setPositionLocation(e?.target?.value)}} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formtextRequiredExperience">
@@ -123,7 +107,7 @@ export default function CreatePosition(props) {
                             Required Experience
                         </Form.Label>
                         <Col sm="10">
-                            <Form.Control type="text" defaultValue={requiredExperience} onChange={(e) => { setRequiredExperience(e?.target?.value) }} />
+                            <Form.Control type="text" defaultValue={requiredExperience} onChange={(e) => {setRequiredExperience(e?.target?.value)}} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formtextOfferedReward">
@@ -131,18 +115,18 @@ export default function CreatePosition(props) {
                             Offered Reward (NIS)
                         </Form.Label>
                         <Col sm="10">
-                            <Form.Control type="number" defaultValue={offeredReward} onChange={(e) => { setOfferedReward(e?.target?.value) }} />
+                            <Form.Control type="number" defaultValue={offeredReward} onChange={(e) => {setOfferedReward(e?.target?.value)}} />
                         </Col>
                     </Form.Group>
 
                     <Button type='submit' variant='primary'>
                         Submit Position
                     </Button>
-                    <Button type='reset' variant='light' className="pull-right" onClick={(e) => handleClear(e)}>
+                    <Button variant='light' className="pull-right" onClick={(e) => handleClear(e)}>
                         Clear All
                     </Button>
                 </Form>
             </Container>
         </Card>
-    );
+    )
 }

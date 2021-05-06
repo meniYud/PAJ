@@ -2,16 +2,15 @@ import mongoose from 'mongoose';
 import asyncHandler from 'express-async-handler'
 import Company from '../models/companyModel.js';
 import Position from '../models/positionModel.js'
-import { enrichPositionData } from './positionDataEnrich.js';
-import { PositionStatus } from '../utils/consts.js';
+import {enrichPositionData} from './positionDataEnrich.js'
 
 // @desc    Fetch all positions
 // @route   GET /api/positions
 // @access  Public
-const getPositions = asyncHandler(async (req, res) => {
+const getPositions = asyncHandler (async (req, res) => {
     const positions = await Position.find({}).select('-offeringAgent');
 
-    if (positions) {
+    if(positions) {
         const enrichedPositions = await enrichPositionData(positions)
         res.json(enrichedPositions)
     } else {
@@ -24,11 +23,11 @@ const getPositions = asyncHandler(async (req, res) => {
 // @desc    Fetch all positions of company
 // @route   GET /api/positions/:id
 // @access  Public
-const getPositionsByCompany = asyncHandler(async (req, res) => {
+const getPositionsByCompany = asyncHandler (async (req, res) => {
     const positions = await Position.find({
-        'offeringCompany': { $eq: req.params.id }
+        'offeringCompany' : { $eq: req.params.id }
     })
-    if (positions) {
+    if(positions) {
         const enrichedPositions = await enrichPositionData(positions)
         res.json(enrichedPositions);
     } else {
@@ -40,10 +39,10 @@ const getPositionsByCompany = asyncHandler(async (req, res) => {
 // @desc    CreatesNewPosition
 // @route   POST /api/positions/
 // @access  Private
-const createPosition = asyncHandler(async (req, res) => {
+const createPosition = asyncHandler (async (req, res) => {
     const {
         offeredReward,
-        positionStatus = PositionStatus.ACTIVE,
+        positionStatus,
         offeringCompany,
         offeringAgent,
         positionDisplayId,
@@ -146,10 +145,6 @@ const updatePosition = asyncHandler(async (req, res) => {
     }
 })
 
-// *********************** NOT IN USE ***********************
-// @desc    removes position from the DB
-// @route   -----
-// @access  Private
 const deletePosition = asyncHandler(async (req, res) => {
     try {
         const deletedPosition = await Position.findByIdAndDelete(req.params.id)
@@ -165,23 +160,10 @@ const deletePosition = asyncHandler(async (req, res) => {
     }
 })
 
-// @desc    set the position as promoted by start
-// @route   POST /api/positions/:positionID
-// @access  Private
-const promotePosition = asyncHandler(async (req, res) => {
-    try {
-        
-    } catch (error) {
-        res.status(400)
-        throw new Error(error)
-    }
-})
-
 export {
     getPositions,
     getPositionsByCompany,
     createPosition,
     updatePosition,
-    deletePosition,
-    promotePosition
+    deletePosition
 }

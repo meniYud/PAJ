@@ -152,7 +152,7 @@ export const promotePositionByID = (positionID) => async (dispatch, getState) =>
             }
         }
 
-        const { data = {} } = await axios.put(url, payload, config);
+        const { data = {} } = await axios.put(url, {id: positionID}, config);
 
         dispatch({
             type: UPDATE_POSITION_SUCCESS,
@@ -168,3 +168,5 @@ export const promotePositionByID = (positionID) => async (dispatch, getState) =>
         })
     }
 }
+
+

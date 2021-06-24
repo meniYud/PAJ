@@ -32,14 +32,15 @@ export default function LoginScreen({ location, history }) {
         <div className='paj-page-header'>
             <Container fluid>
                 <Container>
-                    <Row>
+                    <Row className='justify-content-center'>
                         <h1>Sign In</h1>
                     </Row>
                 </Container>
-                {error && <Message variant='danger'>{error}</Message>}
+                
                 {loading ? <Loader /> :
                     (
                         <FormContainer>
+                            {error && <Message variant='danger'>{error}</Message>}
                             <Form onSubmit={submitHandler}>
                                 <Form.Group control_d='email'>
                                     <Form.Label>Email Address</Form.Label>

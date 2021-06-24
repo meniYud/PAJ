@@ -39,7 +39,7 @@ export default function RegisterScreen({ location, history }) {
         <div className='paj-page-header'>
             <Container fluid>
                 <Container>
-                        <Row>
+                        <Row className='justify-content-center'>
                             <h1>Register</h1>
                         </Row>
                     </Container>

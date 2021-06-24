@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Row, Col, Button, Form} from 'react-bootstrap';
+import { Container, Row, Col, Button, Form} from 'react-bootstrap';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import FormContainer from '../components/FormContainer';
@@ -29,51 +29,56 @@ export default function LoginScreen({ location, history }) {
     };
 
     return (
-        <>
-            <h1>Sign In</h1>
-            {error && <Message variant='danger'>{error}</Message>}
-            {loading ? <Loader /> :
-                (
-                    <FormContainer>
-                        
-                        <Form onSubmit={submitHandler}>
-                            <Form.Group control_d='email'>
-                                <Form.Label>Email Address</Form.Label>
-                                <Form.Control
-                                    type='email'
-                                    placeholder='Enter email'
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                >
-                                </Form.Control>
-                                </Form.Group>
-                            <Form.Group control_d='password'>
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control
-                                    type='password'
-                                    placeholder='Enter Password'
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                >
-                                </Form.Control>
-                            </Form.Group>
-                
-                            <Button type='submit' variant='primary'>
-                                Sign In
-                            </Button>
-                        </Form>
-                
-                        <Row className='py-3'>
-                        <Col>
-                            New Customer? 
-                            <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
-                                Register
-                            </Link>
-                        </Col>
+        <div className='paj-page-header'>
+            <Container fluid>
+                <Container>
+                    <Row>
+                        <h1>Sign In</h1>
                     </Row>
-                    </FormContainer>
-                )
-            }
-        </>
+                </Container>
+                {error && <Message variant='danger'>{error}</Message>}
+                {loading ? <Loader /> :
+                    (
+                        <FormContainer>
+                            <Form onSubmit={submitHandler}>
+                                <Form.Group control_d='email'>
+                                    <Form.Label>Email Address</Form.Label>
+                                    <Form.Control
+                                        type='email'
+                                        placeholder='Enter email'
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    >
+                                    </Form.Control>
+                                    </Form.Group>
+                                <Form.Group control_d='password'>
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control
+                                        type='password'
+                                        placeholder='Enter Password'
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    >
+                                    </Form.Control>
+                                </Form.Group>
+                    
+                                <Button type='submit' variant='primary'>
+                                    Sign In
+                                </Button>
+                            </Form>
+                    
+                            <Row className='py-3'>
+                            <Col>
+                                New Customer? 
+                                <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
+                                    Register
+                                </Link>
+                            </Col>
+                        </Row>
+                        </FormContainer>
+                    )
+                }
+            </Container>
+        </div>
     )
 }

@@ -1,9 +1,41 @@
-main {
-  min-height: 80vh;
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;700;900&display=swap');
+
+:root {
+  --nav-h: 90px;
+  --hero-h: 105vh;
+  --cards-h: 300px;
+  --cards-pos: 110px;
+  --section-color: #fff;
+  --anim-style: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --anim-speed: 0.5s;
+  --cta-w: 130px;
+  --cta-lh: 26px;
+  --cta-fs: 15px;
+  --cw: #fff;
+  --cb: #22212e;
+  --c1: #03C3FF;
+  --c2: #FC4141;
+  --c3: #3C1642;
+  --c4: #c0dfe9;
 }
 
-h3 {
-  padding: 1rem 0;
+body {
+  font-family: 'Titillium Web', sans-serif;
+  overflow-x: hidden;
+}
+
+
+main {
+  min-height: calc(100vh - var(--nav-h));
+}
+
+a, .nav-link {
+  text-transform: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-transform: inherit;
+  letter-spacing: 0;
 }
 
 h1 {
@@ -16,6 +48,30 @@ h2 {
   padding: 0.5rem 0;
 }
 
+h3 {
+  padding: 1rem 0;
+}
+
 .rating span {
   margin: 0.1rem;
 }
+
+.vertical-move {
+  animation: mover 1s infinite  alternate;
+}
+
+.horizontal-move {
+  animation: route 2s infinite  alternate;
+}
+
+@keyframes route {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-20px); }
+}
+
+@keyframes mover {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-20px); }
+}
+
+

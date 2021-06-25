@@ -5,7 +5,7 @@ const Footer = (props) => {
     
 
     return (
-        <footer>
+        <footer className='paj-footer'>
             <Container>
                 <Row>
                     <Col className='text-center py-3'>

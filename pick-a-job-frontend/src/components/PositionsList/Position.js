@@ -88,14 +88,16 @@ const Position = ({positionID, positionProps}) => {
     );
 
     const VisiblePart = (
-        <Card border="primary" onClick={expandPosition}>
+        <Card onClick={expandPosition}>
             <Card.Body>
                 <Row>
                     <Col>
                         <Card.Title>{positionName}</Card.Title>
                     </Col>
                     <Col>
-                        {positionActions}
+                        <div className='actios'>
+                            {positionActions}
+                        </div>
                     </Col>
                 </Row>
                 <Card.Subtitle className="mb-2 text-muted">{company.companyName}</Card.Subtitle>

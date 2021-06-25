@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Row, Nav, Col } from 'react-bootstrap';
+import { Row, Nav, Col, Container } from 'react-bootstrap';
 import PositionList, { CreatePosition } from '../PositionsList'
 
 
@@ -41,18 +41,28 @@ const AgentDashboard = (props) => {
     };
 
     return (
-        <>
-            <Row>
-                <Col><h3>Agent Dashboard</h3></Col>
-                <Col md={{ span: 4, offset: 4 }}>
-                    <div onClick={(e) => onCreatePosition(e)}>
-                        <i className="fas fa-plus-circle fa-3x"></i>
-                    </div>
-                </Col>
-            </Row>
-            {addingPosition && <CreatePosition {...createPositionProps} />}
-            <PositionList company={company} positionProps={editPositionProps} />
-        </>
+        <div className='paj-agent-dashboard'>
+            <div className='header'>
+                <Container>
+                    <Row>
+                        <Col xs={10} md={10}>
+                            <h3>Agent Dashboard</h3>
+                        </Col>
+                        <Col xs={2} md={2}>
+                            <div onClick={(e) => onCreatePosition(e)} className='add-job'>
+                                <i className="fas fa-plus-circle fa-3x"></i>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+            <Container>
+                <div className='list'>
+                    {addingPosition && <CreatePosition {...createPositionProps} />}
+                    <PositionList company={company} positionProps={editPositionProps} />
+                </div>
+            </Container>
+        </div>
     );
 }
 

@@ -14,7 +14,8 @@ const Header = (props) => {
     };
 
     return (
-        <Navbar className='paj-nav' bg="dark" variant='tran' sticky="top" bg='red' expand="lg" collapseOnSelect>
+        // eslint-disable-next-line
+        <Navbar className='paj-nav' bg="dark" variant='tran' sticky="top" bg='red' expand="lg">
             <Container fluid className='pr-0 pl-0'>
                 <LinkContainer to='/'>
                     <Navbar.Brand>

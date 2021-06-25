@@ -412,6 +412,118 @@
     color: var(--cb);
 }
 
+.paj-agent-dashboard .header {
+    padding: 30px 0;
+    background: var(--c4);
+    position: relative;
+}
+
+.paj-agent-dashboard .header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    display: block;
+    height: 130px;
+    transform: skewY(2deg);
+    background: inherit;
+    transform-origin: center center;
+}
+
+.paj-agent-dashboard .header h3 {
+    font-size: 2.5rem;
+}
+.paj-agent-dashboard .header .row {
+    align-items: center;
+}
+.paj-agent-dashboard .header .add-job {
+    cursor: pointer;
+    width: 50px;
+    margin-left: auto;
+}
+.paj-agent-dashboard .header .add-job .fas {
+   transform: scale(.7);
+}
+
+.paj-agent-dashboard .list {
+    background:var(--cw);
+    padding: 0 0 20px;
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    margin-bottom: 80px;
+}
+
+.paj-agent-dashboard .list .card,
+.paj-agent-dashboard .list-group .card {
+    padding-bottom: 20px;
+    border-radius: 10px;
+    border: none;
+}
+
+.paj-agent-dashboard .list .card + .card,
+.paj-agent-dashboard .list-group .card + .card {
+    border-radius: 0 0 15px 15px;
+    margin-top: -30px;
+    border-top: 3px solid var(--c4);
+    background: #fafcfc;
+}
+
+.paj-agent-dashboard .list .card {
+    box-shadow: 0px 4px 16px rgb(0 0 0 / 10%);
+    margin-bottom: 20px;
+}
+
+.paj-agent-dashboard .list-group .card {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 4px 16px rgb(0 0 0 / 10%);
+    margin-bottom: 20px;
+}
+
+.paj-agent-dashboard .card-body {
+    font-weight: 600;
+}
+
+.paj-agent-dashboard .list-group-item {
+    padding: 0;
+    border: none;
+    border-radius: 15px;
+}
+
+.paj-agent-dashboard .card-title,
+.paj-agent-dashboard .card-header {
+    font-size: 2rem;
+}
+
+.paj-agent-dashboard .create-position-footer {
+    display: flex;
+    flex-direction: row-reverse;
+}
+.paj-agent-dashboard .actios {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 9px;
+}
+.paj-agent-dashboard .actios .far {
+    font-size: 20px;
+    border-radius: 50%;
+    padding: 10px;
+    border: 1px solid var(--c4);
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+.paj-agent-dashboard .actios .far:hover {
+    background: var(--c4);
+    color: var(--cw);
+}
+
 .paj-footer {
     background: var(--c3);
     padding: 10rem 0;

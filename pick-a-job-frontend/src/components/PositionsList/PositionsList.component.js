@@ -36,7 +36,6 @@ const PositionslistComponent = (props) => {
 
     return (
         <>
-            <h1>Positions List</h1>
             {loading
                 ? <Loader />
                 : (error

@@ -118,13 +118,14 @@ export default function CreatePosition(props) {
                             <Form.Control type="number" defaultValue={offeredReward} onChange={(e) => {setOfferedReward(e?.target?.value)}} />
                         </Col>
                     </Form.Group>
-
-                    <Button type='submit' variant='primary'>
-                        Submit Position
-                    </Button>
-                    <Button variant='light' className="pull-right" onClick={(e) => handleClear(e)}>
-                        Clear All
-                    </Button>
+                    <div className='create-position-footer'>
+                        <Button type='submit' variant='primary'>
+                            Submit Position
+                        </Button>
+                        <Button variant='light' className="pull-right" onClick={(e) => handleClear(e)}>
+                            Clear All
+                        </Button>
+                    </div>
                 </Form>
             </Container>
         </Card>

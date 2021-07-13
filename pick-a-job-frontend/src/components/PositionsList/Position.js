@@ -91,8 +91,16 @@ const Position = ({positionID, positionProps}) => {
         <Card onClick={expandPosition}>
             <Card.Body>
                 <Row>
-                    <Col>
-                        <Card.Title>{positionName}</Card.Title>
+                    <Col sm={10} className='ml-3'>
+                        <Row>
+                            <Card.Title>{positionName}</Card.Title>
+                        </Row>
+                        <Row>
+                            <Card.Subtitle className="mb-2 text-muted">{company.companyName}</Card.Subtitle>
+                        </Row>
+                        <Row>
+                            <Card.Text>{subPositionName}</Card.Text>
+                        </Row>
                     </Col>
                     <Col>
                         <div className='actios'>
@@ -100,8 +108,6 @@ const Position = ({positionID, positionProps}) => {
                         </div>
                     </Col>
                 </Row>
-                <Card.Subtitle className="mb-2 text-muted">{company.companyName}</Card.Subtitle>
-                <Card.Text>{subPositionName}</Card.Text>
             </Card.Body>
         </Card>
     );

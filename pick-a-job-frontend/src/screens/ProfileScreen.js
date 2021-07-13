@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
-import { Row, Col, Button, Form} from 'react-bootstrap';
+import { Row, Col, Button, Form, Container} from 'react-bootstrap';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { getUserDetails, updateUserProfile } from '../api/userApi/actions';
@@ -51,7 +51,8 @@ export default function ProfileScreen({ location, history }) {
     };
 
     return (
-        <Row>
+        <Container>
+            <Row>
             <Col md={3}>
                 <h2>User Profile</h2>
                 {message && <Message variant='danger'>{message}</Message>}
@@ -112,5 +113,6 @@ export default function ProfileScreen({ location, history }) {
                 <h2>My Orders</h2>
             </Col>
         </Row>
+        </Container>
     )
 }

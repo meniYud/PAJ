@@ -29,7 +29,7 @@ const Header = (props) => {
                     <Nav className="ml-auto">
                         <LinkContainer to='/cart'>
                             <Nav.Link>
-                                Cart
+                                <i class="fas fa-shopping-cart"></i>
                             </Nav.Link>
                         </LinkContainer>
                         {
@@ -40,6 +40,9 @@ const Header = (props) => {
                                     </LinkContainer>
                                     <NavDropdown.Item onClick={logoutHandler}>
                                         Logout
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item onClick={logoutHandler}>
+                                        Admin - TODO page
                                     </NavDropdown.Item>
                                 </NavDropdown>
                             ) :

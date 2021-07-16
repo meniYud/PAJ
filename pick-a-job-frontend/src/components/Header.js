@@ -14,7 +14,8 @@ const Header = (props) => {
     };
 
     return (
-        <Navbar className='paj-nav' bg="dark" variant='tran' sticky="top" bg='red' expand="lg" collapseOnSelect>
+        // eslint-disable-next-line
+        <Navbar className='paj-nav' bg="dark" variant='tran' sticky="top" bg='red' expand="lg">
             <Container fluid className='pr-0 pl-0'>
                 <LinkContainer to='/'>
                     <Navbar.Brand>
@@ -28,7 +29,7 @@ const Header = (props) => {
                     <Nav className="ml-auto">
                         <LinkContainer to='/cart'>
                             <Nav.Link>
-                                Cart
+                                <i class="fas fa-shopping-cart"></i>
                             </Nav.Link>
                         </LinkContainer>
                         {
@@ -39,6 +40,9 @@ const Header = (props) => {
                                     </LinkContainer>
                                     <NavDropdown.Item onClick={logoutHandler}>
                                         Logout
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item onClick={logoutHandler}>
+                                        Admin - TODO page
                                     </NavDropdown.Item>
                                 </NavDropdown>
                             ) :

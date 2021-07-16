@@ -12,11 +12,13 @@
   --cta-lh: 26px;
   --cta-fs: 15px;
   --cw: #fff;
-  --cb: #22212e;
+  --cb: #3c1642;
+  --cg: #dfdfdf;
   --c1: #03C3FF;
   --c2: #FC4141;
   --c3: #3C1642;
   --c4: #c0dfe9;
+  --c5: #e2eef1;
 }
 
 body {
@@ -50,6 +52,10 @@ h2 {
 
 h3 {
   padding: 1rem 0;
+}
+
+a {
+  color: var(--cb);
 }
 
 .rating span {

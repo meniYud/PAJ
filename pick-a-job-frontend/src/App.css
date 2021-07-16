@@ -13,6 +13,27 @@
     text-indent: -999rem;
 }
 
+.paj-nav .nav-item {
+    margin-right: 0;
+}
+
+@media (min-width: 992px) {
+    .paj-nav .dropdown-menu {
+        right: 0;
+        border-radius: 15px;
+    }
+
+    .paj-nav .dropdown-item {
+        padding: 0.75rem 1.5rem;
+    }
+
+    .paj-nav .dropdown-item.active, 
+    .paj-nav .dropdown-item:active {
+        color: var(--c1);
+        background: white;
+    }
+}
+
 .paj-nav .navbar-nav {
     align-items: center;
 }
@@ -410,6 +431,274 @@
 .paj-guest-dashboard .paj-section .paj-info-text p {
     font-size: 1.5rem;
     color: var(--cb);
+}
+
+.paj-agent-dashboard .header {
+    padding: 30px 0;
+    background: var(--c4);
+    position: relative;
+}
+
+.paj-agent-dashboard .header::after {
+    content: '';
+    position: absolute;
+    bottom: -220px;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    display: block;
+    height: 300px;
+    transform: skewY(2deg);
+    background: inherit;
+    transform-origin: center center;
+}
+
+.paj-agent-dashboard .header h3 {
+    font-size: 2.5rem;
+}
+.paj-agent-dashboard .header .row {
+    align-items: center;
+}
+.paj-agent-dashboard .header .add-job {
+    cursor: pointer;
+    width: 50px;
+    margin-left: auto;
+}
+.paj-agent-dashboard .header .add-job .fas {
+   transform: scale(.7);
+}
+.paj-agent-dashboard .sub-header {
+    margin: 0 auto 20px;
+}
+.paj-agent-dashboard .sub-header .add-job {
+    border-radius: 30px;
+    background: var(--c2);
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: var(--cw);
+    cursor: pointer;
+}
+.paj-agent-dashboard .sub-header .add-job .fas {
+    margin: 0 10px 0 0 !important;
+    color: var(--cw);
+}
+.paj-agent-dashboard .sub-header .input-group {
+    border-radius: 30px;
+}
+.paj-agent-dashboard .sub-header .input-group .form-control {
+    border-radius: 30px;
+}
+.paj-agent-dashboard .sub-header .input-group .btn {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    position: absolute;
+    inset: 0 0 0 0;
+    margin: auto 0 auto auto;
+    z-index: 1;
+}
+.paj-agent-dashboard .sub-header .input-group .fas {
+    margin: 0 !important;
+    color: var(--cg);
+}
+.paj-agent-dashboard .sub-header .filter {
+    height: 45px;
+    font-size: 20px;
+    font-weight: 500;
+    display: flex;
+    border-radius: 30px;
+    justify-content: start;
+    align-items: center;
+    background: var(--c5);
+    padding: 0 15px;
+}
+.paj-agent-dashboard .pagination {
+    font-size: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+.paj-agent-dashboard .paj-company-pane {
+   box-shadow: 0px 4px 16px rgb(0 0 0 / 10%);
+   border-radius: 10px;
+   background: var(--cw);
+   height: calc(100% - 50px);
+   padding: 15px;
+}
+.paj-agent-dashboard .paj-company-pane h3 {
+   border-bottom: 5px solid var(--c2);
+   text-transform: uppercase;
+   padding: 0 0 20px;
+}
+.paj-agent-dashboard .paj-company-pane .company-img  {
+   width: 200px;
+   height: 200px;
+   border: 2px solid var(--cg);
+   border-radius: 50%;
+   display: grid;
+   place-content: center;
+   overflow: hidden;
+   margin: 20px auto;
+}
+.paj-agent-dashboard .paj-company-pane .company-img img {
+   width: 100%;
+}
+
+.paj-agent-dashboard .list {
+    background:var(--cw);
+    padding: 0 0 20px;
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    margin-bottom: 80px;
+    min-height: 800px;
+}
+.paj-agent-dashboard .list .card,
+.paj-agent-dashboard .list-group .card {
+    padding-bottom: 20px;
+    border-radius: 10px;
+    border: none;
+}
+
+.paj-agent-dashboard .list .card + .card,
+.paj-agent-dashboard .list-group .card + .card {
+    border-radius: 0 0 15px 15px;
+    margin-top: -20px;
+    border-top: 3px solid var(--c4);
+    background: #fafcfc;
+}
+
+.paj-agent-dashboard .list .card {
+    box-shadow: 0px 4px 16px rgb(0 0 0 / 10%);
+    margin-bottom: 10px;
+}
+
+.paj-agent-dashboard .list-group .card {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
+    margin-bottom: 10px;
+    background: var(--cw);
+}
+.paj-agent-dashboard .list .createJob {
+    position: fixed;
+    inset: var(--nav-h) 0 0 0;
+    margin: auto;
+    z-index: 1021;
+    background: rgb(0 0 0 / 50%);
+    backdrop-filter: blur(5px);
+}
+.paj-agent-dashboard .list .createJob .card {
+    width: 100%;
+    max-width: 700px;
+    height: calc(100vh - 200px);
+    position: fixed;
+    margin: auto;
+    inset: 20px 0 0 0;
+}
+.paj-agent-dashboard .list .createJob .card .card-header {
+    
+}
+.paj-agent-dashboard .list .createJob .card .card-body {
+    overflow: auto;
+}
+
+
+
+.paj-agent-dashboard .card-body {
+    font-weight: 600;
+}
+
+.paj-agent-dashboard .list-group-item {
+    padding: 0;
+    border: none;
+    background: transparent;;
+    border-radius: 15px;
+}
+
+.paj-agent-dashboard .card-title,
+.paj-agent-dashboard .card-header {
+    font-size: 1.2rem;
+    color: var(--c1);
+}
+
+.paj-agent-dashboard .create-position-footer {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-bottom: 20px;
+}
+
+.paj-agent-dashboard .create-position-footer .btn {
+   border-radius: 15px;
+}
+
+.paj-agent-dashboard .actios {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 9px;
+}
+.paj-agent-dashboard .actios .far {
+    font-size: 12px;
+    border-radius: 50%;
+    padding: 9px;
+    border: 1px solid var(--c4);
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.paj-agent-dashboard .actios .far:hover {
+    background: var(--c4);
+    color: var(--cw);
+}
+
+.paj-cart .header {
+    padding: 30px 0;
+    background: var(--c4);
+    position: relative;
+}
+
+.paj-cart .header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    display: block;
+    height: 130px;
+    transform: skewY(2deg);
+    background: inherit;
+    transform-origin: center center;
+}
+
+.paj-cart .header h3 {
+    font-size: 2.5rem;
+}
+
+.paj-cart .content {
+    background:var(--cw);
+    padding: 20px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 4px 16px rgb(0 0 0 / 10%);
+    margin-bottom: 20px;
+}
+
+
+.paj-cart .paj-sub-total .card {
+    border: none;
+    border-left: 1px solid var(--cg);
 }
 
 .paj-footer {

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ListGroup, Col } from 'react-bootstrap';
-import { listPositions } from '../../api/positionApi/actions'
+import { ListGroup, Col, Container, Row } from 'react-bootstrap';
+import { listPositions } from '../../api/positionApi/actions';
+import Pagination from 'react-bootstrap/Pagination';
 import Position from './Position';
 import Loader from '../Loader';
 import Message from '../Message';
@@ -36,7 +37,6 @@ const PositionslistComponent = (props) => {
 
     return (
         <>
-            <h1>Positions List</h1>
             {loading
                 ? <Loader />
                 : (error
@@ -51,6 +51,29 @@ const PositionslistComponent = (props) => {
                         }
                     </ListGroup>)
             }
+            <Container>
+                <Row>
+                    <Col>
+                        <Pagination>
+                            <Pagination.First />
+                            <Pagination.Prev />
+                            <Pagination.Item>{1}</Pagination.Item>
+                            <Pagination.Ellipsis />
+
+                            <Pagination.Item>{10}</Pagination.Item>
+                            <Pagination.Item>{11}</Pagination.Item>
+                            <Pagination.Item active>{12}</Pagination.Item>
+                            <Pagination.Item>{13}</Pagination.Item>
+                            <Pagination.Item disabled>{14}</Pagination.Item>
+
+                            <Pagination.Ellipsis />
+                            <Pagination.Item>{20}</Pagination.Item>
+                            <Pagination.Next />
+                            <Pagination.Last />
+                        </Pagination>
+                    </Col>
+                </Row>
+            </Container>
         </>
     );
 }

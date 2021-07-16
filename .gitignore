@@ -39,3 +39,4 @@ yarn.lock
 package-lock.json
 .history
 .eslintcache
+pick-a-job-frontend/.eslintcache

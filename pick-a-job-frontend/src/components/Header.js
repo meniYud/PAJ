@@ -1,17 +1,80 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { logout } from '../api/userApi/actions';
+import {isEmptyObject, isAdminUser, isLoggedIn} from '../utils/functions';
 
 
 const Header = (props) => {
     const dispatch = useDispatch();
     const userLogin = useSelector(state => state.userLogin);
+    const history = useHistory();
     const { userInfo } = userLogin;
+    
     const logoutHandler = () => {
-        dispatch(logout());
+        dispatch(logout()).then(() => history.push('/'));
     };
+
+    const getAdminDropdown = () => {
+        return (
+            <NavDropdown title={userInfo.name} id='userName'>
+                <LinkContainer to='/dashboard'>
+                    <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                </LinkContainer>
+                {/* <LinkContainer to='/dashboard/agents'>
+                    <NavDropdown.Item>Agents List</NavDropdown.Item>
+                </LinkContainer> */}
+                <LinkContainer to='/profile'>
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to='/login'>
+                    <NavDropdown.Item onClick={logoutHandler}>
+                        Logout
+                    </NavDropdown.Item>
+                </LinkContainer>
+            </NavDropdown>
+        );
+    }
+
+    const getUserDropdown = () => {
+        return (
+            <NavDropdown title={userInfo.name} id='userName'>
+                <LinkContainer to='/dashboard'>
+                    <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to='/profile'>
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to='/login'>
+                    <NavDropdown.Item onClick={logoutHandler}>
+                        Logout
+                    </NavDropdown.Item>
+                </LinkContainer>
+            </NavDropdown>
+        );
+    }
+
+    const nonLoggedInUser = () => {
+        return (
+            <LinkContainer to='/login'>
+                <Nav.Link className='main-cta'>
+                    Sign In
+                </Nav.Link>
+            </LinkContainer>
+        );
+    }
+
+    const getHeaderDropdown = () => {
+        if(isAdminUser(userInfo)){
+            return getAdminDropdown();
+        } else if(isLoggedIn(userInfo)){
+            return getUserDropdown();
+        } else {
+            return nonLoggedInUser();
+        }
+    }
 
     return (
         // eslint-disable-next-line
@@ -27,12 +90,8 @@ const Header = (props) => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
-                        <LinkContainer to='/cart'>
-                            <Nav.Link>
-                                <i class="fas fa-shopping-cart"></i>
-                            </Nav.Link>
-                        </LinkContainer>
-                        {
+                        {getHeaderDropdown()}
+                        {/* {
                             userInfo ? (
                                 <NavDropdown title={userInfo.name} id='userName'>
                                     <LinkContainer to='/profile'>
@@ -41,9 +100,6 @@ const Header = (props) => {
                                     <NavDropdown.Item onClick={logoutHandler}>
                                         Logout
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item onClick={logoutHandler}>
-                                        Admin - TODO page
-                                    </NavDropdown.Item>
                                 </NavDropdown>
                             ) :
                                 <LinkContainer to='/login'>
@@ -51,17 +107,14 @@ const Header = (props) => {
                                         Sign In
                                     </Nav.Link>
                                 </LinkContainer>
-                        }
-                        {userInfo && userInfo.isUsersAdmin && (
+                        } */}
+                        {/* {userInfo && userInfo.isUsersAdmin && (
                             <NavDropdown title='Admin' id='adminMenu'>
-                                <LinkContainer to='/admin/userList'>
-                                    <NavDropdown.Item>Users</NavDropdown.Item>
-                                </LinkContainer>
-                                <LinkContainer to='/admin/productList'>
-                                    <NavDropdown.Item>Products</NavDropdown.Item>
+                                <LinkContainer to='/dashboard/agents'>
+                                    <NavDropdown.Item>Agents List</NavDropdown.Item>
                                 </LinkContainer>
                             </NavDropdown>
-                        )}
+                        )} */}
                     </Nav>
                 </Navbar.Collapse>
             </Container>

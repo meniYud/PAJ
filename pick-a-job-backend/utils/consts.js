@@ -26,9 +26,59 @@ const aggregatePositionStatus = () => {
     return Object.keys(PositionStatus)
 }
 
-// isSimpleRole receives string and returns true iff the string is one of [GUEST, STAR]
-const isSimpleRole = (role) => {
+// isPublicRole receives string and returns true iff the string is one of [GUEST, STAR]
+const isPublicRole = (role) => {
     return role === Roles.GUEST || role === Roles.STAR;
 }
 
-export {Roles, PositionStatus, aggregateRoles, isSimpleRole, aggregatePositionStatus}
+// isUserAdminRole receives string and returns true iff the string is one of [COMPANYADMIN, PAJADMIN, PAJ]
+const isUserAdminRole = (role) => {
+    return role === Roles.COMPANYADMIN || role === Roles.PAJADMIN || role === Roles.PAJ;
+}
+
+const getTokenFromRequest = (req) => {
+    let token = null;
+    const authHeader = req?.headers?.authorization;
+    const isBearerToken = authHeader && authHeader.startsWith('Bearer');
+    if(isBearerToken){
+        token = authHeader.split(' ')[1];
+    }
+
+    return token;
+}
+
+const findCreateeRoleFromCreator = (creatorProps) => {
+    let createdUserType = null;
+    const creatorPermissions = creatorProps?.userCreator;
+    if(creatorPermissions?.isCreator){
+        createdUserType = creatorPermissions?.createdUserType
+    }
+
+    return Array.isArray(createdUserType) ? createdUserType[0] : createdUserType;
+}
+const findCreateeRelatedEntityFromCreator = (creatorProps) => {
+    let createdUserRelEntity = null;
+    const creatorRelEntity = creatorProps?.relatedEntities;
+    if(creatorRelEntity?.company){
+        createdUserRelEntity = {relatedEntities: {company: creatorRelEntity?.company}}
+    }
+
+    return createdUserRelEntity;
+}
+
+const findCreateePropsFromCreator = (creatorProps) => {
+    const createeRole = findCreateeRoleFromCreator(creatorProps)
+    const createeRelEntity = findCreateeRelatedEntityFromCreator(creatorProps)
+
+    return {role: createeRole, relatedEntities: createeRelEntity};
+}
+
+export {Roles,
+    PositionStatus,
+    aggregateRoles,
+    isPublicRole,
+    isUserAdminRole,
+    aggregatePositionStatus,
+    getTokenFromRequest,
+    findCreateePropsFromCreator,
+}

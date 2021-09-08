@@ -10,7 +10,7 @@ import { login } from '../api/userApi/actions';
 export default function LoginScreen({ location, history }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const redirect = location.search ? location.search.split('=')[1] : '/';
+    const redirect = location.search ? location.search.split('=')[1] : '/dashboard';
     
     const dispatch = useDispatch();
 

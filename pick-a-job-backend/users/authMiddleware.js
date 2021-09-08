@@ -4,15 +4,12 @@ import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
 import Role from '../models/roleModel.js'
 
-import {Roles, isSimpleRole} from '../utils/consts.js'
+import {Roles, isPublicRole, isUserAdminRole, getTokenFromRequest, findCreateePropsFromCreator} from '../utils/consts.js'
 
 const protect = asyncHandler(async (req, res, next) => {
-    let token
-    if (
-        req.headers.authorization &&
-        req.headers.authorization.startsWith('Bearer')) {
+    let token = getTokenFromRequest(req);
+    if (token) {
         try {
-            token = req.headers.authorization.split(' ')[1]
             const decoded = jwt.verify(token, process.env.JWT_SECRET)
             req.user = await User.findById(decoded.id).select('-password')
             req.role = await Role.findById(req.user.role)
@@ -29,8 +26,8 @@ const protect = asyncHandler(async (req, res, next) => {
     }
 })
 
-const adminProtect = asyncHandler(async (req, res, next) => {
-    if (req.user && req.role && req.role.name === Roles.PAJADMIN) {
+const userAdminProtect = asyncHandler(async (req, res, next) => {
+    if (req.user && req.role && isUserAdminRole(req.role.name)) {
         next();
     } else {
         res.status(401);
@@ -41,43 +38,39 @@ const adminProtect = asyncHandler(async (req, res, next) => {
 const roleCreatorProtect = asyncHandler(async (req, res, next) => {
     try {
         let token
-        const {askToCreate = Roles.GUEST} = req.body
-        
+        const {creationRole = Roles.GUEST} = req.body;
 
-        if(isSimpleRole(askToCreate)) {
+        const creationPropsDoc = await Role.findOne({name: creationRole});
+        const creationProps = creationPropsDoc.toObject();
+        
+        if(isPublicRole(creationProps?.name)) {
+            body.creationProps = creationProps;
             next();
-        }
-        
-        if (
-            req.headers.authorization &&
-            req.headers.authorization.startsWith('Bearer')) {
+        } else {
+            token = getTokenFromRequest(req);
+            if (token) {
+                const decoded = jwt.verify(token, process.env.JWT_SECRET)
+                const creatorUserDoc = await User.findById(decoded.id).select('-password')
+                const creatorUserProps = creatorUserDoc.toObject();
+                const creatorRoleDoc = await Role.findById(creatorUserDoc.role)
+                const creatorRoleProps = creatorRoleDoc.toObject();
+                const creatorProps = {...creatorUserProps, ...creatorRoleProps}
 
-            token = req.headers.authorization.split(' ')[1]
-            const decoded = jwt.verify(token, process.env.JWT_SECRET)
-            const creatorRole = await Role.findOne({ name: decoded.role });
-            const askToCreateProps = await Role.findOne({ name: askToCreate });
-
-            
-            if (
-                creatorRole.userCreator.isCreator &&
-                creatorRole.userCreator.createdUserType) {
+                const createdUserType = findCreateePropsFromCreator(creatorProps);
+                const createdUserRoleDoc = await Role.findOne({name: createdUserType.role})
+                const createdUserProps = {_id: createdUserRoleDoc._id, relatedEntities: createdUserType.relatedEntities}
                 
-                const {createdUserType} = creatorRole.userCreator;
-
-                if(createdUserType.indexOf(askToCreateProps._id) + 1) {
-                    req.askToCreate = askToCreateProps;
+                if (createdUserType) {
+                    req.creationProps = createdUserProps;
                     next();
                 } else {
                     res.status(401);
-                    throw new Error('Insufficient creator authorization')
+                    throw new Error('Logged in user has no permissions to create other users')
                 }
             } else {
                 res.status(401);
-                throw new Error('Logged in user has no permissions to create user')
+                throw new Error('Unable to create user due to missing creator token');
             }
-        } else {
-            res.status(401);
-            throw new Error('Missing token');
         }
     } catch (error) {
         res.status(401);
@@ -87,6 +80,6 @@ const roleCreatorProtect = asyncHandler(async (req, res, next) => {
 
 export {
     protect,
-    adminProtect,
+    userAdminProtect,
     roleCreatorProtect
 }

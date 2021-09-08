@@ -2,17 +2,20 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button } from 'react-bootstrap';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
-import { listUsers, registerAgent } from '../api/userApi/actions';
-import AddUserModal from '../components/AddUserModal';
+import Loader from '../../Loader';
+import Message from '../../Message';
+import { listUsers, registerAgent, deleteUser } from '../../../api/userApi/actions';
+import AddUserModal from '../../AddUserModal';
 
-export default function Userlistscreen({ history }) {
+export default function AgentsTab({ history }) {
     const dispatch = useDispatch();
     const userList = useSelector(state => state.userList);
+    const deletedUser = useSelector(state => state.deleteUser);
     const [addUser, setAddUser] = React.useState(false);
+    const [userToDelete, setUserToDelete] = React.useState(null)
     const [newUserData, setNewUserData] = React.useState(null);
     const { loading, error, users } = userList;
+    const { loading: loadingDeleteUser, error: errorDeleteUser, users: userAfterDeletion } = deletedUser;
 
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo } = userLogin;
@@ -32,9 +35,6 @@ export default function Userlistscreen({ history }) {
     const submitNewUser = ({userName, email, password}) => {
         setAddUser(false)
         setNewUserData({userName, email, password})
-        console.log({userName})
-        console.log({email})
-        console.log({password})
     }
 
     useEffect(() => {
@@ -54,7 +54,27 @@ export default function Userlistscreen({ history }) {
         }
     }, [dispatch, history, userInfo]);
 
+    useEffect(() => {
+        if (userInfo && userInfo.isUsersAdmin && userToDelete && !loadingDeleteUser) {
+            dispatch(deleteUser(userToDelete));
+        }
+    }, [dispatch, history, userInfo, userToDelete]);
+
+    useEffect(() => {
+        if (userInfo && userInfo.isUsersAdmin && deletedUser) {
+            if(errorDeleteUser){
+                setUserToDelete(null);
+                dispatch(listUsers(false));
+            }
+            if(userAfterDeletion && userAfterDeletion.length){
+                setUserToDelete(null);
+                dispatch(listUsers(false));
+            }
+        }
+    }, [dispatch, history, userInfo, userAfterDeletion, errorDeleteUser]);
+
     const deleteHandler = (id) => {
+        setUserToDelete(id)
         console.log(id);
     };
 
@@ -90,11 +110,11 @@ export default function Userlistscreen({ history }) {
                                         <i className='fas fa-times' style={{ color: 'red' }} />
                                     )}</td>
                                 <td>
-                                    <LinkContainer to={`/user/${user._id}/edit`}>
+                                    {/* <LinkContainer to={`/user/${user._id}/edit`}>
                                         <Button variant='light' className='btn-sm'>
                                             <i className='fas fa-edit' />
                                         </Button>
-                                    </LinkContainer>
+                                    </LinkContainer> */}
                                     <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(user._id)}>
                                         <i className='fas fa-trash' />
                                     </Button>

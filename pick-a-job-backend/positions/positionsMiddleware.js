@@ -5,7 +5,7 @@ import User from '../models/userModel.js'
 import Role from '../models/roleModel.js'
 import Company from '../models/companyModel.js'
 
-import {Roles, isSimpleRole} from '../utils/consts.js'
+import {Roles, isPublicRole} from '../utils/consts.js'
 
 const protectCreatePosition = asyncHandler(async (req, res, next) => {
     const {offeringCompany, offeringAgent} = req.body;

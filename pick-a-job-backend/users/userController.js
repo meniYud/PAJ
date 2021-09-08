@@ -4,7 +4,7 @@ import User from '../models/userModel.js'
 import Role from '../models/roleModel.js';
 
 
-import { enrichUserData } from './userDataEnrich.js'
+import { enrichUserData, _getCompanyAgents, _setUserAsCompanyAgent, _removeUserAsCompanyAgent } from './userDataEnrich.js'
 
 // @desc    Auth the user & get token
 // @route   POST /api/users/login
@@ -59,7 +59,9 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password } = req.body;
-    const { askToCreateProps } = req;
+    const { creationProps } = req;
+    let {relatedEntities = null, _id: roleId} = creationProps;
+    let addedToCompany = {success: false};
 
     const userExist = await User.findOne({ email });
 
@@ -68,12 +70,22 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new Error('user already exist')
     }
 
-    const user = await User.create({
+    let user = await User.create({
         name,
         email,
         password,
-        role: askToCreateProps._id
+        role: roleId,
+        ...(relatedEntities && {...relatedEntities})
     })
+
+    if(relatedEntities?.relatedEntities?.company){
+        const companyId = relatedEntities.relatedEntities.company
+        addedToCompany = await _setUserAsCompanyAgent(user._id, companyId)
+    }
+
+    if(relatedEntities && !addedToCompany.success){//the user should be company agent but we fail to update companys document
+        user = await User.findByIdAndDelete(user._id)
+    }
 
     if (user) {
         res.status(201).json({
@@ -121,15 +133,45 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // @route   GET /api/users
 // @access  Private/Admin
 const getUsers = asyncHandler(async (req, res) => {
-    const users = await User.find({});
-    res.json(users);
+    if(req.role.name === 'COMPANYADMIN'){
+        const relEntity = req.user.relatedEntities;
+        const companyId = relEntity.company;
+        const users = await _getCompanyAgents(companyId);
+        res.json(users);
+    } else if(req.role.name === 'PAJ'){
+        const users = await User.find({});
+        res.json(users);
+    } else {
+        const users = await User.find({});
+        res.json(users);
+    }
 });
 
+const deleteUser = asyncHandler(async (req, res) => {
+    const userToDelete = req.params.id;
+    if(req.role.name === 'COMPANYADMIN'){// deleting an agent
+        const relEntity = req.user.relatedEntities;
+        const companyId = relEntity.company;
+        const {success, companyData} = await _removeUserAsCompanyAgent(userToDelete, companyId);
+        let outcome = null;
+        let user = null;
+        if(success){
+            user = await User.findByIdAndDelete(userToDelete)
+            if(user.get('id') === userToDelete){
+                outcome = 'SUCCESS'
+            } else {
+                outcome = 'FAIL'
+            }
+        }
+        res.json(outcome);
+    }
+});
 
 export {
     authUser,
     getUserProfile,
     registerUser,
     updateUserProfile,
-    getUsers
+    getUsers,
+    deleteUser
 }

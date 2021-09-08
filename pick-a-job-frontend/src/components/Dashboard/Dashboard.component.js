@@ -4,7 +4,7 @@ import { ListGroup } from 'react-bootstrap';
 import { userRoles } from '../../api/userApi/consts'
 import Loader from '../Loader';
 import Message from '../Message';
-import AgentDashboard from './AgentDashboard'
+import AgentDashboard from './AgentDashboard/AgentDashboard'
 import StarDashboard from './StarDashboard'
 import GuestDashboard from './GuestDashboard'
 import PAJDashboard from './PAJDashboard'

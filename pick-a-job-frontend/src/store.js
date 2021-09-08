@@ -4,7 +4,7 @@ import logger from 'redux-logger';
 import { productListReducer, productDetailsReducer } from './api/productApi/reducers';
 import { cartReducer } from './api/cartApi/reducers';
 import { positionListReducer } from './api/positionApi/reducers';
-import { userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer, userListReducer } from './api/userApi/reducers';
+import { userLoginReducer, userRegisterReducer, agentRegisterReducer, userDetailsReducer, userUpdateProfileReducer, userListReducer, userDeleteReducer } from './api/userApi/reducers';
 
 const reducer = combineReducers({
     productList: productListReducer,
@@ -16,6 +16,8 @@ const reducer = combineReducers({
     userUpdateProfile: userUpdateProfileReducer,
     userList: userListReducer,
     positionList: positionListReducer,
+    newAgent: agentRegisterReducer,
+    deleteUser: userDeleteReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

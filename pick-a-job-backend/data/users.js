@@ -100,7 +100,16 @@ const oneUser = [
         relatedEntities: {
             company: mongoose.Types.ObjectId('60366b5d2e9a6743b013d115')
         },
-    }
+    },
+    {
+        name: 'SeanIndustries admin',
+        email: 'seanIndustriesAdmin@paj.com',
+        password: bcrypt.hashSync('123456', 10),
+        role: 'COMPANYADMIN',
+        relatedEntities: {
+            company: mongoose.Types.ObjectId('60366b5d2e9a6743b013d115')
+        },
+    },
 ];
 
 export default oneUser;

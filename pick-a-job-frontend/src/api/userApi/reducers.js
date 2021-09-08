@@ -18,7 +18,14 @@ const {
     USER_LIST_REQUEST,
     USER_LIST_SUCCESS,
     USER_LIST_FAIL,
-    USER_LIST_RESET
+    USER_LIST_RESET,
+    AGENT_REGISTRATION_REQUEST,
+    AGENT_REGISTRATION_SUCCESS,
+    AGENT_REGISTRATION_FAIL,
+    AGENT_REGISTRATION_RESET,
+    USER_DELETE_REQUEST,
+    USER_DELETE_SUCCESS,
+    USER_DELETE_FAIL
 } = userActions;
 
 export const userLoginReducer = (state = {}, action) => {
@@ -30,7 +37,7 @@ export const userLoginReducer = (state = {}, action) => {
         case USER_LOGIN_FAIL:
             return { loading: false, error: action.payload };
         case USER_LOGOUT:
-            return { loading: false };
+            return { loading: false, userInfo: null };
         default:
             return { ...state };
     }
@@ -44,6 +51,21 @@ export const userRegisterReducer = (state = {}, action) => {
             return { loading: false, userInfo: action.payload };
         case USER_REGISTRATION_FAIL:
             return { loading: false, error: action.payload };
+        default:
+            return { ...state };
+    }
+};
+
+export const agentRegisterReducer = (state = {}, action) => {
+    switch (action.type) {
+        case AGENT_REGISTRATION_REQUEST:
+            return { loading: true };
+        case AGENT_REGISTRATION_SUCCESS:
+            return { loading: false, agentInfo: action.payload };
+        case AGENT_REGISTRATION_FAIL:
+            return { loading: false, error: action.payload };
+        case AGENT_REGISTRATION_RESET:
+            return { loading: false, agentInfo: null };
         default:
             return { ...state };
     }
@@ -89,6 +111,19 @@ export const userListReducer = (state = { users: [] }, action) => {
             return { loading: false, error: action.payload };
         case USER_LIST_RESET:
             return { loading: false, users: [] };
+        default:
+            return { ...state };
+    }
+};
+
+export const userDeleteReducer = (state = { users: [] }, action) => {
+    switch (action.type) {
+        case USER_DELETE_REQUEST:
+            return { loading: true };
+        case USER_DELETE_SUCCESS:
+            return { loading: false, users: action.payload };
+        case USER_DELETE_FAIL:
+            return { loading: false, error: action.payload };
         default:
             return { ...state };
     }

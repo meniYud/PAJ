@@ -36,6 +36,11 @@ const isUserAdminRole = (role) => {
     return role === Roles.COMPANYADMIN || role === Roles.PAJADMIN || role === Roles.PAJ;
 }
 
+// isUserPowerAdminRole receives string and returns true iff the string is one of [PAJADMIN]
+const isUserPowerAdminRole = (role) => {
+    return role === Roles.PAJADMIN;
+}
+
 const getTokenFromRequest = (req) => {
     let token = null;
     const authHeader = req?.headers?.authorization;
@@ -81,4 +86,5 @@ export {Roles,
     aggregatePositionStatus,
     getTokenFromRequest,
     findCreateePropsFromCreator,
+    isUserPowerAdminRole
 }

@@ -2,14 +2,13 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { productListReducer, productDetailsReducer } from './api/productApi/reducers';
-import { cartReducer } from './api/cartApi/reducers';
+import { companiesReducer } from './api/companyApi/reducers';
 import { positionListReducer } from './api/positionApi/reducers';
 import { userLoginReducer, userRegisterReducer, agentRegisterReducer, userDetailsReducer, userUpdateProfileReducer, userListReducer, userDeleteReducer } from './api/userApi/reducers';
 
 const reducer = combineReducers({
     productList: productListReducer,
     productDetails: productDetailsReducer,
-    cart: cartReducer,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
     userDetails: userDetailsReducer,
@@ -18,6 +17,7 @@ const reducer = combineReducers({
     positionList: positionListReducer,
     newAgent: agentRegisterReducer,
     deleteUser: userDeleteReducer,
+    company: companiesReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

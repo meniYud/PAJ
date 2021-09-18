@@ -34,7 +34,7 @@ export default function DashboardComponent(props) {
             Dashboard = PAJDashboard;
             break;
         case userRoles.PAJADMIN:
-            Dashboard = PAJDashboard;
+            Dashboard = AgentDashboard;
             break;
         case userRoles.GUEST:
         default:

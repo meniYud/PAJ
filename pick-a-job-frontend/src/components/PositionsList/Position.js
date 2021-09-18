@@ -96,7 +96,7 @@ const Position = ({positionID, positionProps}) => {
                             <Card.Title>{positionName}</Card.Title>
                         </Row>
                         <Row>
-                            <Card.Subtitle className="mb-2 text-muted">{company.companyName}</Card.Subtitle>
+                            <Card.Subtitle className="mb-2 text-muted">{company?.companyName}</Card.Subtitle>
                         </Row>
                         <Row>
                             <Card.Text>{subPositionName}</Card.Text>

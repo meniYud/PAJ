@@ -5,8 +5,13 @@ import PositionList, { CreatePosition } from '../../PositionsList'
 
 
 const PositionsTab = (props) => {
-    const { userInfo: { name: agentName, relatedEntities: { company } } } = props;
+    const { userInfo: { name: agentName } } = props;
     const [addingPosition, setAddingPosition] = useState(false);
+
+    let company = null
+    if(props.relatedEntities?.company){
+        company = props.relatedEntities.company
+    }
 
     useEffect(() => {
         

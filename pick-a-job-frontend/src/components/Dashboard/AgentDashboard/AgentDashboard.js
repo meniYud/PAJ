@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Row, Nav, Col, Container, InputGroup, FormControl, Button } from 'react-bootstrap';
 import PositionsTab from './PositionsTab';
-import AgentsTab from './AgentsTab'
+import AgentsTab from './AgentsTab';
+import CompanyTab from './CompanyTab';
 
 const agentsTabsEnum = {
     POSITION_LIST: 'POSITION_LIST',
@@ -11,8 +12,12 @@ const agentsTabsEnum = {
 }
 
 const AgentDashboard = (props) => {
-    const { userInfo: { name: agentName, relatedEntities: { company } } } = props;
+    const { userInfo: { name: agentName } } = props;
     const [selectedTab, setSelectedTab] = useState(agentsTabsEnum.POSITION_LIST);
+    let company = null
+    if(props.relatedEntities?.company){
+        company = props.relatedEntities.company
+    }
 
     useEffect(() => {
         
@@ -28,6 +33,7 @@ const AgentDashboard = (props) => {
     const tabsComponents = {
         POSITION_LIST: <PositionsTab userInfo={props.userInfo} />,
         AGENTS_LIST: <AgentsTab />,
+        COMPANY_DATA: <CompanyTab />
     }
 
     return (

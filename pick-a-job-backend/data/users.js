@@ -83,32 +83,38 @@ const users = [
 ];
 
 const oneUser = [
+    // {
+    //     name: 'Matrix agent 3',
+    //     email: 'matrixAgent3@paj.com',
+    //     password: bcrypt.hashSync('123456', 10),
+    //     role: 'COMPANYAGENT',
+    //     relatedEntities: {
+    //         company: mongoose.Types.ObjectId('60366b5d2e9a6743b013d114')
+    //     },
+    // },
+    // {
+    //     name: 'SeanIndustries agent 3',
+    //     email: 'seanIndustriesAgent3@paj.com',
+    //     password: bcrypt.hashSync('123456', 10),
+    //     role: 'COMPANYAGENT',
+    //     relatedEntities: {
+    //         company: mongoose.Types.ObjectId('60366b5d2e9a6743b013d115')
+    //     },
+    // },
+    // {
+    //     name: 'SeanIndustries admin',
+    //     email: 'seanIndustriesAdmin@paj.com',
+    //     password: bcrypt.hashSync('123456', 10),
+    //     role: 'COMPANYADMIN',
+    //     relatedEntities: {
+    //         company: mongoose.Types.ObjectId('60366b5d2e9a6743b013d115')
+    //     },
+    // },
     {
-        name: 'Matrix agent 3',
-        email: 'matrixAgent3@paj.com',
+        name: 'GOD',
+        email: 'god@paj.com',
         password: bcrypt.hashSync('123456', 10),
-        role: 'COMPANYAGENT',
-        relatedEntities: {
-            company: mongoose.Types.ObjectId('60366b5d2e9a6743b013d114')
-        },
-    },
-    {
-        name: 'SeanIndustries agent 3',
-        email: 'seanIndustriesAgent3@paj.com',
-        password: bcrypt.hashSync('123456', 10),
-        role: 'COMPANYAGENT',
-        relatedEntities: {
-            company: mongoose.Types.ObjectId('60366b5d2e9a6743b013d115')
-        },
-    },
-    {
-        name: 'SeanIndustries admin',
-        email: 'seanIndustriesAdmin@paj.com',
-        password: bcrypt.hashSync('123456', 10),
-        role: 'COMPANYADMIN',
-        relatedEntities: {
-            company: mongoose.Types.ObjectId('60366b5d2e9a6743b013d115')
-        },
+        role: 'PAJADMIN',
     },
 ];
 

@@ -42,7 +42,6 @@ const _setUserAsCompanyAgent = asyncHandler(async (userId, companyId) => {
     } catch (error) {
         return {success: false}
     }
-    
 })
 
 const _removeUserAsCompanyAgent = asyncHandler(async (userId, companyId) => {

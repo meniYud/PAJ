@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Container } from 'react-bootstrap';
 import Loader from '../../Loader';
 import Message from '../../Message';
 import { listAllCompanies, addNewCompany } from '../../../api/companyApi/actions';
@@ -80,51 +80,53 @@ export default function AgentsTab({ history }) {
     // };
 
     return addCompany ? <AddCompanyModal onSubmit={submitNewCompany} onClose={createCompanyHandler} /> : (
-        <>
-            <h1>Companies</h1>
-            {loading && <Loader />}
-            {error && <Message variant='danger'>{error}</Message>}
-            {<div onClick={(e) => createCompanyHandler(e)} className='add-job'>
-                <i className="fas fa-plus-circle mr-2"></i>
-                <span>Add New Company</span>
-            </div>}
-            {comps && (
-                <Table stripped bordered hover responsive className='table-sm'>
-                    <thead>
-                        <tr>
-                            <th>NAME</th>
-                            <th>CV EMAIL</th>
-                            <th>DESCRIPTION</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {comps.map(comp => (
-                            <tr key={comp._id}>
-                                {/* <td>{user._id}</td> */}
-                                <td>{comp.companyName}</td>
-                                <td>{comp.cvsEmail}</td>
-                                <td>{comp.companyDescription}</td>
-                                <td>{userInfo.admin ? (
-                                    <i className='fas fa-check' style={{ color: 'green' }} />
-                                ) : (
-                                        <i className='fas fa-times' style={{ color: 'red' }} />
-                                    )}</td>
-                                <td>
-                                    {/* <LinkContainer to={`/user/${user._id}/edit`}>
-                                        <Button variant='light' className='btn-sm'>
-                                            <i className='fas fa-edit' />
-                                        </Button>
-                                    </LinkContainer> */}
-                                    {/* <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(user._id)}>
-                                        <i className='fas fa-trash' />
-                                    </Button> */}
-                                </td>
+        <div className="paj-companies-wrapper">
+            <Container>
+                <h1>Companies</h1>
+                {loading && <Loader />}
+                {error && <Message variant='danger'>{error}</Message>}
+                {<div onClick={(e) => createCompanyHandler(e)} className='add-job'>
+                    <i className="fas fa-plus-circle mr-2"></i>
+                    <span>Add New Company</span>
+                </div>}
+                {comps && (
+                    <Table stripped bordered hover responsive className='table-sm'>
+                        <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>CV EMAIL</th>
+                                <th>DESCRIPTION</th>
+                                <th></th>
                             </tr>
-                        ))}
-                    </tbody>
-                </Table>
-            )}
-        </>
+                        </thead>
+                        <tbody>
+                            {comps.map(comp => (
+                                <tr key={comp._id}>
+                                    {/* <td>{user._id}</td> */}
+                                    <td>{comp.companyName}</td>
+                                    <td>{comp.cvsEmail}</td>
+                                    <td>{comp.companyDescription}</td>
+                                    <td>{userInfo.admin ? (
+                                        <i className='fas fa-check' style={{ color: 'green' }} />
+                                    ) : (
+                                            <i className='fas fa-times' style={{ color: 'red' }} />
+                                        )}</td>
+                                    <td>
+                                        {/* <LinkContainer to={`/user/${user._id}/edit`}>
+                                            <Button variant='light' className='btn-sm'>
+                                                <i className='fas fa-edit' />
+                                            </Button>
+                                        </LinkContainer> */}
+                                        {/* <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(user._id)}>
+                                            <i className='fas fa-trash' />
+                                        </Button> */}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                )}
+            </Container>
+        </div>
     )
 }

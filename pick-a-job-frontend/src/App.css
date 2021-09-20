@@ -529,8 +529,15 @@
    box-shadow: 0px 4px 16px rgb(0 0 0 / 10%);
    border-radius: 10px;
    background: var(--cw);
-   height: calc(100% - 50px);
+   height: auto;
    padding: 15px;
+   margin-bottom: 20px;
+}
+@media (min-width: 992px) {
+    .paj-agent-dashboard .paj-company-pane {
+        height: calc(100% - 50px);
+        margin-bottom: 10px;
+    }
 }
 .paj-agent-dashboard .paj-company-pane h3 {
    border-bottom: 5px solid var(--c2);
@@ -582,13 +589,14 @@
 
 .paj-agent-dashboard .list-group .card {
     padding: 0;
-    background-color: transparent;
     border: none;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
     margin-bottom: 10px;
     background: var(--cw);
 }
+
+
 .paj-agent-dashboard .list .createJob {
     position: fixed;
     inset: var(--nav-h) 0 0 0;
@@ -605,13 +613,89 @@
     margin: auto;
     inset: 20px 0 0 0;
 }
-.paj-agent-dashboard .list .createJob .card .card-header {
-    
-}
+
 .paj-agent-dashboard .list .createJob .card .card-body {
     overflow: auto;
 }
 
+.paj-agent-dashboard .tabs .paj-position-wrapper,
+.paj-agent-dashboard .tabs .paj-companies-wrapper,
+.paj-agent-dashboard .tabs .paj-add-user-wrapper {
+    background: var(--cw);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+}
+
+.paj-agent-dashboard .tabs .paj-position-wrapper{
+   padding-top: 20px;
+}
+.paj-agent-dashboard .tabs .nav-tabs {
+    flex-wrap: nowrap;
+ }
+ @media (min-width: 992px) {
+     .paj-agent-dashboard .tabs .nav-tabs {
+         font-size: 1.6rem;
+         flex: auto;
+         margin-right: 10px;
+     }
+ }
+
+ .paj-agent-dashboard .tabs .paj-add-user-wrapper .add-job,
+ .paj-agent-dashboard .tabs .paj-companies-wrapper .add-job {
+    border-radius: 30px;
+    background: var(--c2);
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: var(--cw);
+    cursor: pointer;
+    margin-bottom: 20px;
+ }
+ .paj-agent-dashboard .tabs .paj-add-user-wrapper .table-responsive,
+ .paj-agent-dashboard .tabs .paj-companies-wrapper .table-responsive{
+     font-size: 1.2rem;
+     font-weight: 300;
+ }
+ .paj-agent-dashboard .tabs .paj-add-user-wrapper .table-responsive .btn {
+     border-radius: 50%;
+     width: 30px;
+     height: 30px;
+     padding: 0;
+ }
+
+.paj-agent-dashboard .tabs .nav-tabs .nav-item {
+   font-size:1rem;
+   flex: 1;
+   cursor: pointer;
+   margin: 0;
+}
+@media (min-width: 992px) {
+    .paj-agent-dashboard .tabs .nav-tabs .nav-item {
+        font-size: 1.6rem;
+        flex: 0 0 auto;
+        margin-right: 10px;
+    }
+}
+
+.paj-agent-dashboard .tabs .nav-tabs .nav-link {
+   padding: 8px 30px;
+   border: none;
+   background: var(--c2);
+   border-radius: 20px 20px 0 0;
+   color: var(--cw);
+   text-align: center;
+}
+
+.paj-agent-dashboard .tabs .nav-tabs .nav-item.show .nav-link, 
+.paj-agent-dashboard .tabs .nav-tabs .nav-link.active {
+    border-radius: 20px 20px 0 0;
+    background: var(--cw);
+    color: var(--cb);
+}
+.paj-agent-dashboard .tabs .nav-tabs .nav-link:hover {
+    border: none;
+}
 
 
 .paj-agent-dashboard .card-body {
@@ -621,7 +705,7 @@
 .paj-agent-dashboard .list-group-item {
     padding: 0;
     border: none;
-    background: transparent;;
+    background: transparent;
     border-radius: 15px;
 }
 

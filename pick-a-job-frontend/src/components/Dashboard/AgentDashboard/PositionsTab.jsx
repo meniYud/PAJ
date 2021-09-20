@@ -46,7 +46,7 @@ const PositionsTab = (props) => {
     };
 
     return (
-        <div className='paj-agent-dashboard'>
+        <div className='paj-position-wrapper'>
             <div className='sub-header'>
                 <Container>
                 <Row>
@@ -70,7 +70,7 @@ const PositionsTab = (props) => {
                             </InputGroup.Append>
                         </InputGroup>
                     </Col>
-                    <Col sm={2}>
+                    <Col sm={3}>
                         <div className='filter'>
                             <i className="fas fa-filter mr-2"></i>
                             Filter a job
@@ -81,7 +81,7 @@ const PositionsTab = (props) => {
             </div>
             <Container>
                 <Row>
-                    <Col xs={3}>
+                    <Col sm={3}>
                         <div className='paj-company-pane'>
                             <h3>company Panel</h3>
                             <div className='company-img'>

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button } from 'react-bootstrap';
 import Loader from '../../Loader';
@@ -7,8 +8,9 @@ import Message from '../../Message';
 import { listAllCompanies, addNewCompany } from '../../../api/companyApi/actions';
 import AddCompanyModal from '../../AddCompanyModal';
 
-export default function AgentsTab({ history }) {
+export default function CompanyTab() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const companyList = useSelector(state => state.company);
     // const deletedUser = useSelector(state => state.deleteUser);
     const [addCompany, setAddCompany] = React.useState(false);
@@ -79,8 +81,9 @@ export default function AgentsTab({ history }) {
     //     console.log(id);
     // };
 
-    return addCompany ? <AddCompanyModal onSubmit={submitNewCompany} onClose={createCompanyHandler} /> : (
+    return (
         <>
+            {addCompany && <AddCompanyModal onSubmit={submitNewCompany} onClose={createCompanyHandler} />}
             <h1>Companies</h1>
             {loading && <Loader />}
             {error && <Message variant='danger'>{error}</Message>}

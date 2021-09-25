@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button } from 'react-bootstrap';
 import Loader from '../../Loader';
@@ -7,8 +8,9 @@ import Message from '../../Message';
 import { listUsers, registerAgent, deleteUser } from '../../../api/userApi/actions';
 import AddUserModal from '../../AddUserModal';
 
-export default function AgentsTab({ history }) {
+export default function AgentsTab() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const userList = useSelector(state => state.userList);
     const deletedUser = useSelector(state => state.deleteUser);
     const [addUser, setAddUser] = React.useState(false);
@@ -78,9 +80,10 @@ export default function AgentsTab({ history }) {
         console.log(id);
     };
 
-    return addUser ? <AddUserModal onSubmit={submitNewUser} onClose={createUserHandler} /> : (
+    return (
         <>
-            <h1>Users</h1>
+            {addUser && <AddUserModal onSubmit={submitNewUser} onClose={createUserHandler} />}
+            <h1>Agents</h1>
             {loading && <Loader />}
             {error && <Message variant='danger'>{error}</Message>}
             {<div onClick={(e) => createUserHandler(e)} className='add-job'>

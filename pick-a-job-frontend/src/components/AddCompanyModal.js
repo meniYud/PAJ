@@ -4,7 +4,7 @@ import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 // const {companyName, cvsEmail, companyDescription} = req.body.companyData;
 // const {email, name, password} = req.body.companyAdmin;
 
-const AddUserModal = (props) => {
+const AddCompanyModal = (props) => {
     // New Company Admin Data
     const [userName, setUserName] = React.useState('');
     const [userEmail, setUserEmail] = React.useState('');
@@ -42,88 +42,99 @@ const AddUserModal = (props) => {
     
 
     return (
-        <Card>
-            <Card.Header className="text-center" onClick={handleRegret}>"Add User"</Card.Header>
-                <Container className='justify-content-md-center card-body'>
-                    <Form onSubmit={(e) => onSubmit(e)}>
-                        <h2>Company Data</h2>
-                        <Form.Group control_d='newCompanyName'>
-                            <Form.Label>Company Name</Form.Label>
-                            <Form.Control
-                                id="newCompanyName"
-                                type='text'
-                                placeholder='Enter Company Name'
-                                value={companyName}
-                                onChange={(e) => setCompanyName(e.target.value)}
-                            >
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group control_d='email'>
-                            <Form.Label>CV Email Address</Form.Label>
-                            <Form.Control
-                                type='email'
-                                placeholder='Enter email'
-                                value={cvsEmail}
-                                onChange={(e) => setCvsEmail(e.target.value)}
-                            >
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group control_d='companyDescription'>
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control
-                                type='textarea'
-                                rows="3"
-                                placeholder='Company Description'
-                                value={companyDescription}
-                                onChange={(e) => setCompanyDescription(e.target.value)}
-                            >
-                            </Form.Control>
-                        </Form.Group>
+        <div class="modal" tabindex="-1" role="dialog" style={{display: 'inherit'}} onClick={handleRegret}>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Company</h5>
+                        <button type="button" class="close text-center" data-dismiss="modal" aria-label="Close" onClick={handleRegret}>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <Container className='justify-content-md-center card-body'>
+                            <Form onSubmit={(e) => onSubmit(e)}>
+                                <h2>Company Data</h2>
+                                <Form.Group control_d='newCompanyName'>
+                                    <Form.Label>Company Name</Form.Label>
+                                    <Form.Control
+                                        id="newCompanyName"
+                                        type='text'
+                                        placeholder='Enter Company Name'
+                                        value={companyName}
+                                        onChange={(e) => setCompanyName(e.target.value)}
+                                    >
+                                    </Form.Control>
+                                </Form.Group>
+                                <Form.Group control_d='email'>
+                                    <Form.Label>CV Email Address</Form.Label>
+                                    <Form.Control
+                                        type='email'
+                                        placeholder='Enter email'
+                                        value={cvsEmail}
+                                        onChange={(e) => setCvsEmail(e.target.value)}
+                                    >
+                                    </Form.Control>
+                                </Form.Group>
+                                <Form.Group control_d='companyDescription'>
+                                    <Form.Label>Description</Form.Label>
+                                    <Form.Control
+                                        type='textarea'
+                                        rows="3"
+                                        placeholder='Company Description'
+                                        value={companyDescription}
+                                        onChange={(e) => setCompanyDescription(e.target.value)}
+                                    >
+                                    </Form.Control>
+                                </Form.Group>
 
-                        <h2>Company Admin Data</h2>
-                        <Form.Group control_d='formPlaintextNewUserEmail'>
-                            <Form.Label>User Name</Form.Label>
-                            <Form.Control
-                                type='text'
-                                placeholder='Enter User Name'
-                                value={userName}
-                                onChange={(e) => setUserName(e.target.value)}
-                            >
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group control_d='email'>
-                            <Form.Label>Email Address</Form.Label>
-                            <Form.Control
-                                type='email'
-                                placeholder='Enter email'
-                                value={userEmail}
-                                onChange={(e) => setUserEmail(e.target.value)}
-                            >
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group control_d='password'>
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type='password'
-                                placeholder='Enter Password'
-                                value={userPassword}
-                                onChange={(e) => setUserPassword(e.target.value)}
-                            >
-                            </Form.Control>
-                        </Form.Group>
-                        
-                        <div className='create-position-footer'>
-                            <Button type='submit' variant='primary'>
-                                Create User
-                            </Button>
-                            <Button variant='light' className="pull-right" onClick={(e) => handleClear(e)}>
-                                Clear All
-                            </Button>
-                        </div>
-                    </Form>
-                </Container>
-            </Card>
+                                <h2>Company Admin Data</h2>
+                                <Form.Group control_d='formPlaintextNewUserEmail'>
+                                    <Form.Label>User Name</Form.Label>
+                                    <Form.Control
+                                        type='text'
+                                        placeholder='Enter User Name'
+                                        value={userName}
+                                        onChange={(e) => setUserName(e.target.value)}
+                                    >
+                                    </Form.Control>
+                                </Form.Group>
+                                <Form.Group control_d='email'>
+                                    <Form.Label>Email Address</Form.Label>
+                                    <Form.Control
+                                        type='email'
+                                        placeholder='Enter email'
+                                        value={userEmail}
+                                        onChange={(e) => setUserEmail(e.target.value)}
+                                    >
+                                    </Form.Control>
+                                </Form.Group>
+                                <Form.Group control_d='password'>
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control
+                                        type='password'
+                                        placeholder='Enter Password'
+                                        value={userPassword}
+                                        onChange={(e) => setUserPassword(e.target.value)}
+                                    >
+                                    </Form.Control>
+                                </Form.Group>
+                                
+                                <div className='create-position-footer'>
+                                    <Button type='submit' variant='primary'>
+                                        Create User
+                                    </Button>
+                                    <Button variant='light' className="pull-right" onClick={(e) => handleClear(e)}>
+                                        Clear All
+                                    </Button>
+                                </div>
+                            </Form>
+                        </Container>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }
 
-export default AddUserModal;
+export default AddCompanyModal;

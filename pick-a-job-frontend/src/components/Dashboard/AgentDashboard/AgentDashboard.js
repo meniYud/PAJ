@@ -37,7 +37,7 @@ const AgentDashboard = (props) => {
     }
 
     return (
-        <div className='paj-agent-dashboard'>
+        <div className='paj-agent-dashboard eli'>
             <div className='header'>
                 <Container>
                     <Row>
@@ -47,18 +47,22 @@ const AgentDashboard = (props) => {
                     </Row>
                 </Container>
             </div>
-            <ul className="nav nav-tabs">
-                <li className="nav-item">
-                    <div className={`nav-link${isTabActive(agentsTabsEnum.POSITION_LIST) ? ' active' : ''}`} onClick={() => setSelectedTab(agentsTabsEnum.POSITION_LIST)}>Positions</div>
-                </li>
-                <li className="nav-item">
-                    <div className={`nav-link${isTabActive(agentsTabsEnum.AGENTS_LIST) ? ' active' : ''}`} onClick={() => setSelectedTab(agentsTabsEnum.AGENTS_LIST)}>Agents</div>
-                </li>
-                <li className="nav-item">
-                    <div className={`nav-link${isTabActive(agentsTabsEnum.COMPANY_DATA) ? ' active' : ''}`} onClick={() => setSelectedTab(agentsTabsEnum.COMPANY_DATA)}>Company</div>
-                </li>
-            </ul>
-            {tabsComponents[selectedTab]}
+            <Container>
+                <div className="tabs">
+                        <ul className="nav nav-tabs">
+                            <li className="nav-item">
+                                <div className={`nav-link${isTabActive(agentsTabsEnum.POSITION_LIST) ? ' active' : ''}`} onClick={() => setSelectedTab(agentsTabsEnum.POSITION_LIST)}>Positions</div>
+                            </li>
+                            <li className="nav-item">
+                                <div className={`nav-link${isTabActive(agentsTabsEnum.AGENTS_LIST) ? ' active' : ''}`} onClick={() => setSelectedTab(agentsTabsEnum.AGENTS_LIST)}>Agents</div>
+                            </li>
+                            <li className="nav-item">
+                                <div className={`nav-link${isTabActive(agentsTabsEnum.COMPANY_DATA) ? ' active' : ''}`} onClick={() => setSelectedTab(agentsTabsEnum.COMPANY_DATA)}>Company</div>
+                            </li>
+                        </ul>
+                    {tabsComponents[selectedTab]}
+                </div>
+            </Container>
         </div>
     );
 }

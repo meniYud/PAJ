@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap'
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Container, Row, Col } from 'react-bootstrap';
 import Loader from '../../Loader';
 import Message from '../../Message';
 import { listUsers, registerAgent, deleteUser } from '../../../api/userApi/actions';
@@ -81,52 +81,61 @@ export default function AgentsTab() {
     };
 
     return (
-        <>
-            {addUser && <AddUserModal onSubmit={submitNewUser} onClose={createUserHandler} />}
-            <h1>Agents</h1>
-            {loading && <Loader />}
-            {error && <Message variant='danger'>{error}</Message>}
-            {<div onClick={(e) => createUserHandler(e)} className='add-job'>
-                <i className="fas fa-plus-circle mr-2"></i>
-                <span>Add Company Agent</span>
-            </div>}
-            {users && (
-                <Table stripped bordered hover responsive className='table-sm'>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>NAME</th>
-                            <th>EMAIL</th>
-                            <th>ADMIN</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {users.map(user => (
-                            <tr key={user._id}>
-                                <td>{user._id}</td>
-                                <td>{user.name}</td>
-                                <td><a href={`mailto: ${user.email}`}>{user.email}</a></td>
-                                <td>{user.admin ? (
-                                    <i className='fas fa-check' style={{ color: 'green' }} />
-                                ) : (
-                                        <i className='fas fa-times' style={{ color: 'red' }} />
-                                    )}</td>
-                                <td>
-                                    {/* <LinkContainer to={`/user/${user._id}/edit`}>
-                                        <Button variant='light' className='btn-sm'>
-                                            <i className='fas fa-edit' />
-                                        </Button>
-                                    </LinkContainer> */}
-                                    <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(user._id)}>
-                                        <i className='fas fa-trash' />
-                                    </Button>
-                                </td>
+        <div className="paj-add-user-wrapper">
+            <Container>
+                {addUser && <AddUserModal onSubmit={submitNewUser} onClose={createUserHandler} />}
+                <Row>
+                    <Col>
+                        <h1>Agents</h1>
+                    </Col>
+                    <Col md={4}>
+                        {<div onClick={(e) => createUserHandler(e)} className='add-job'>
+                            <i className="fas fa-plus-circle mr-2"></i>
+                            <span>Add Company Agent</span>
+                        </div>}
+                    </Col>
+                </Row>
+                {loading && <Loader />}
+                {error && <Message variant='danger'>{error}</Message>}
+                
+                {users && (
+                    <Table stripped bordered hover responsive className='table-sm'>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>NAME</th>
+                                <th>EMAIL</th>
+                                <th>ADMIN</th>
+                                <th></th>
                             </tr>
-                        ))}
-                    </tbody>
-                </Table>
-            )}
-        </>
+                        </thead>
+                        <tbody>
+                            {users.map(user => (
+                                <tr key={user._id}>
+                                    <td>{user._id}</td>
+                                    <td>{user.name}</td>
+                                    <td><a href={`mailto: ${user.email}`}>{user.email}</a></td>
+                                    <td>{user.admin ? (
+                                        <i className='fas fa-check' style={{ color: 'green' }} />
+                                    ) : (
+                                            <i className='fas fa-times' style={{ color: 'red' }} />
+                                        )}</td>
+                                    <td>
+                                        {/* <LinkContainer to={`/user/${user._id}/edit`}>
+                                            <Button variant='light' className='btn-sm'>
+                                                <i className='fas fa-edit' />
+                                            </Button>
+                                        </LinkContainer> */}
+                                        <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(user._id)}>
+                                            <i className='fas fa-trash' />
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                )}
+            </Container>
+        </div>
     )
 }

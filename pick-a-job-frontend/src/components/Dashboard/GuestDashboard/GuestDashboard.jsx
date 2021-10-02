@@ -1,8 +1,7 @@
-import React from 'react'
-import { Col, Container, Row, Nav } from 'react-bootstrap'
-export default function Guestdashboard(props) {
-    
+import React from 'react';
+import { Col, Container, Row, Nav } from 'react-bootstrap';
 
+export default function Guestdashboard(props) {
     return (
         <div className='paj-guest-dashboard'>
             <div className='paj-hero'>

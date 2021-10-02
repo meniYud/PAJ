@@ -4,10 +4,10 @@ import { ListGroup } from 'react-bootstrap';
 import { userRoles } from '../../api/userApi/consts'
 import Loader from '../Loader';
 import Message from '../Message';
-import AgentDashboard from './AgentDashboard/AgentDashboard'
-import StarDashboard from './StarDashboard'
-import GuestDashboard from './GuestDashboard'
-import PAJDashboard from './PAJDashboard'
+import AgentDashboard from './AgentDashboard/AgentDashboard';
+import StarDashboard from './StarDashboard/StarDashboard';
+import GuestDashboard from './GuestDashboard/GuestDashboard';
+import PAJDashboard from './PAJDashboard/PAJDashboard';
 
 
 export default function DashboardComponent(props) {

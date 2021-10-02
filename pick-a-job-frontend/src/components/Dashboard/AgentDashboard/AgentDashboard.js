@@ -1,27 +1,53 @@
 import React, { useEffect, useState } from 'react';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Row, Nav, Col, Container, InputGroup, FormControl, Button } from 'react-bootstrap';
-import PositionsTab from './PositionsTab';
-import AgentsTab from './AgentsTab';
-import CompanyTab from './CompanyTab';
+import { useHistory } from 'react-router-dom';
+import { Row, Col, Container } from 'react-bootstrap';
+import {getPathnameSuffix, isAdminUser} from '../../../utils/functions';
+import PositionsTab from '../../PositionsList/PositionsTab';
+import AgentList from '../../AgentList/AgentList.component';
+import CompanyList from '../../CompanyList/CompanyList.component';
 
 const agentsTabsEnum = {
     POSITION_LIST: 'POSITION_LIST',
     AGENTS_LIST: 'AGENTS_LIST',
-    COMPANY_DATA: 'COMPANY_DATA'
+    COMPANY_LIST: 'COMPANY_LIST'
+}
+const tabsPathEnum = {
+    POSITION_LIST: 'positions',
+    AGENTS_LIST: 'agents',
+    COMPANY_LIST: 'companies'
 }
 
 const AgentDashboard = (props) => {
-    const { userInfo: { name: agentName } } = props;
-    const [selectedTab, setSelectedTab] = useState(agentsTabsEnum.POSITION_LIST);
+    const history = useHistory();
+    const { userInfo } = props;
+    const [selectedTab, setSelectedTab] = useState(getInitialTab);
     let company = null
     if(props.relatedEntities?.company){
         company = props.relatedEntities.company
     }
+    let isAdminAgent = isAdminUser(userInfo)
 
     useEffect(() => {
+        const exactRoute = getPathnameSuffix(history?.location?.pathname);
+        if(exactRoute !== tabsPathEnum[selectedTab]){
+            history.replace(`/dashboard/${tabsPathEnum[selectedTab]}`)
+        }
+    }, [selectedTab]);
+
+    function getInitialTab() {
+        const exactRoute = getPathnameSuffix(history?.location?.pathname)
         
-    }, []);
+        switch(exactRoute){
+            case tabsPathEnum.POSITION_LIST:
+                return agentsTabsEnum.POSITION_LIST;
+            case tabsPathEnum.AGENTS_LIST:
+                return agentsTabsEnum.AGENTS_LIST;
+            case tabsPathEnum.COMPANY_LIST:
+                return agentsTabsEnum.COMPANY_LIST;
+            default:
+                return agentsTabsEnum.POSITION_LIST;
+        }
+    }
 
     const isTabActive = (tabName) => {
         if(selectedTab === tabName){
@@ -32,8 +58,8 @@ const AgentDashboard = (props) => {
 
     const tabsComponents = {
         POSITION_LIST: <PositionsTab userInfo={props.userInfo} />,
-        AGENTS_LIST: <AgentsTab />,
-        COMPANY_DATA: <CompanyTab />
+        AGENTS_LIST: <AgentList />,
+        COMPANY_LIST: <CompanyList />
     }
 
     return (
@@ -53,12 +79,12 @@ const AgentDashboard = (props) => {
                             <li className="nav-item">
                                 <div className={`nav-link${isTabActive(agentsTabsEnum.POSITION_LIST) ? ' active' : ''}`} onClick={() => setSelectedTab(agentsTabsEnum.POSITION_LIST)}>Positions</div>
                             </li>
-                            <li className="nav-item">
+                            {isAdminAgent && <li className="nav-item">
                                 <div className={`nav-link${isTabActive(agentsTabsEnum.AGENTS_LIST) ? ' active' : ''}`} onClick={() => setSelectedTab(agentsTabsEnum.AGENTS_LIST)}>Agents</div>
-                            </li>
-                            <li className="nav-item">
-                                <div className={`nav-link${isTabActive(agentsTabsEnum.COMPANY_DATA) ? ' active' : ''}`} onClick={() => setSelectedTab(agentsTabsEnum.COMPANY_DATA)}>Company</div>
-                            </li>
+                            </li>}
+                            {isAdminAgent &&  <li className="nav-item">
+                                <div className={`nav-link${isTabActive(agentsTabsEnum.COMPANY_LIST) ? ' active' : ''}`} onClick={() => setSelectedTab(agentsTabsEnum.COMPANY_LIST)}>Company</div>
+                            </li>}
                         </ul>
                     {tabsComponents[selectedTab]}
                 </div>

@@ -1,10 +1,7 @@
 import React from 'react'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 
-// const {companyName, cvsEmail, companyDescription} = req.body.companyData;
-// const {email, name, password} = req.body.companyAdmin;
-
-const AddCompanyModal = (props) => {
+const CreateCompany = (props) => {
     // New Company Admin Data
     const [userName, setUserName] = React.useState('');
     const [userEmail, setUserEmail] = React.useState('');
@@ -137,4 +134,4 @@ const AddCompanyModal = (props) => {
     )
 }
 
-export default AddCompanyModal;
+export default CreateCompany;

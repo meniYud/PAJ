@@ -44,7 +44,12 @@ export default function CreatePosition(props) {
     return (
         <div className='createJob'>
             <Card>
-                <Card.Header className="text-center" onClick={removeCreatePosition}>{title}</Card.Header>
+                <Card.Header className="text-center">
+                    <span>{title}</span>
+                    <button type="button" class="close text-center" data-dismiss="modal" aria-label="Close" onClick={removeCreatePosition}>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </Card.Header>
                 <Container className='justify-content-md-center card-body'>
                     <Form onSubmit={(e) => onSubmit(e)}>
                         <Form.Group as={Row} controlId="formPlaintextCompany">

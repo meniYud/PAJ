@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 
-const AddUserModal = (props) => {
+const CreateAgent = (props) => {
     const [userName, setUserName] = React.useState('');
     const [userEmail, setUserEmail] = React.useState('');
     const [userPassword, setUserPassword] = React.useState('');
@@ -93,4 +93,4 @@ const AddUserModal = (props) => {
     )
 }
 
-export default AddUserModal;
+export default CreateAgent;

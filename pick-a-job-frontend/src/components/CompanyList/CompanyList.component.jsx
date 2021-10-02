@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button, Container, Col, Row } from 'react-bootstrap';
-import Loader from '../../Loader';
-import Message from '../../Message';
-import { listAllCompanies, addNewCompany } from '../../../api/companyApi/actions';
-import AddCompanyModal from '../../AddCompanyModal';
+import Loader from '../Loader';
+import Message from '../Message';
+import { listAllCompanies, addNewCompany } from '../../api/companyApi/actions';
+import CreateCompany from './CreateCompany';
 
-export default function CompanyTab() {
+export default function CompanyList() {
     const dispatch = useDispatch();
     const history = useHistory();
     const companyList = useSelector(state => state.company);
@@ -18,17 +18,10 @@ export default function CompanyTab() {
     const [newCompanyData, setNewCompanyData] = React.useState(null);
     
     const { loading, error, companies: comps, recentlyAdded } = companyList;
-    // const { loading: loadingDeleteUser, error: errorDeleteUser, users: userAfterDeletion } = deletedUser;
 
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo } = userLogin;
-    
-    // const newlyCreatedAgent = useSelector(state => state.newAgent);
-    // const { agentInfo = null, error: createUserError, loading: createUserLoading } = newlyCreatedAgent;
 
-    // if(agentInfo && agentInfo.role && newUserData){
-    //     setNewUserData(null)
-    // }
 
     const createCompanyHandler = (e) => {
         e.stopPropagation()
@@ -57,34 +50,11 @@ export default function CompanyTab() {
         }
     }, [dispatch, history, userInfo]);
 
-    // useEffect(() => {
-    //     if (userInfo && userInfo.isUsersAdmin && userToDelete && !loadingDeleteUser) {
-    //         dispatch(deleteUser(userToDelete));
-    //     }
-    // }, [dispatch, history, userInfo, userToDelete]);
-
-    // useEffect(() => {
-    //     if (userInfo && userInfo.isUsersAdmin && deletedUser) {
-    //         if(errorDeleteUser){
-    //             setUserToDelete(null);
-    //             dispatch(listUsers(false));
-    //         }
-    //         if(userAfterDeletion && userAfterDeletion.length){
-    //             setUserToDelete(null);
-    //             dispatch(listUsers(false));
-    //         }
-    //     }
-    // }, [dispatch, history, userInfo, userAfterDeletion, errorDeleteUser]);
-
-    // const deleteHandler = (id) => {
-    //     setUserToDelete(id)
-    //     console.log(id);
-    // };
 
     return (
         <div className="paj-companies-wrapper">
             <Container>
-                {addCompany && <AddCompanyModal onSubmit={submitNewCompany} onClose={createCompanyHandler} />}
+                {addCompany && <CreateCompany onSubmit={submitNewCompany} onClose={createCompanyHandler} />}
                 <Row>
                     <Col>
                       <h1>Companies</h1>

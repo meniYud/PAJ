@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button, Container, Row, Col } from 'react-bootstrap';
-import Loader from '../../Loader';
-import Message from '../../Message';
-import { listUsers, registerAgent, deleteUser } from '../../../api/userApi/actions';
-import AddUserModal from '../../AddUserModal';
+import Loader from '../Loader';
+import Message from '../Message';
+import { listUsers, registerAgent, deleteUser } from '../../api/userApi/actions';
+import CreateAgent from './CreateAgent';
 
-export default function AgentsTab() {
+export default function AgentList() {
     const dispatch = useDispatch();
     const history = useHistory();
     const userList = useSelector(state => state.userList);
@@ -83,7 +83,7 @@ export default function AgentsTab() {
     return (
         <div className="paj-add-user-wrapper">
             <Container>
-                {addUser && <AddUserModal onSubmit={submitNewUser} onClose={createUserHandler} />}
+                {addUser && <CreateAgent onSubmit={submitNewUser} onClose={createUserHandler} />}
                 <Row>
                     <Col>
                         <h1>Agents</h1>

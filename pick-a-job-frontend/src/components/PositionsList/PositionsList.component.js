@@ -51,7 +51,7 @@ const PositionslistComponent = (props) => {
                         }
                     </ListGroup>)
             }
-            <Container>
+            {/* <Container>
                 <Row>
                     <Col>
                         <Pagination>
@@ -73,7 +73,7 @@ const PositionslistComponent = (props) => {
                         </Pagination>
                     </Col>
                 </Row>
-            </Container>
+            </Container> */}
         </>
     );
 }

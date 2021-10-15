@@ -14,7 +14,8 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "debug": "concurrently \"npm run server:debug\" \"npm run client\"",
     "data:import": "node pick-a-job-backend/seeder",
-    "data:destroy": "node pick-a-job-backend/seeder -d"
+    "data:destroy": "node pick-a-job-backend/seeder -d",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix pick-a-job-frontend && npm run build --prefix pick-a-job-frontend"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -10,7 +10,7 @@ node_modules/
 /coverage
 
 # production
-/build
+/pick-a-job-frontend/build
 
 # misc
 .DS_Store
@@ -35,8 +35,10 @@ test-reports
 npm-debug.log.*
 .npmrc
 .demorc
-yarn.lock
 package-lock.json
 .history
+
 .eslintcache
 pick-a-job-frontend/.eslintcache
+yarn.lock
+pick-a-job-frontend/yarn.lock

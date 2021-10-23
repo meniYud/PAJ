@@ -21,7 +21,8 @@ const CreateCompany = (props) => {
         }
     }
 
-    const handleClear = () => {
+    const handleClear = (e) => {
+        e.stopPropagation()
         setUserName('');
         setUserEmail('');
         setUserPassword('');
@@ -32,6 +33,7 @@ const CreateCompany = (props) => {
     }
 
     const handleRegret = (e) => {
+        e.stopPropagation()
         if(props.onClose){
             props.onClose(e);
         }
@@ -39,7 +41,7 @@ const CreateCompany = (props) => {
     
 
     return (
-        <div class="modal" tabindex="-1" role="dialog" style={{display: 'inherit'}} onClick={handleRegret}>
+        <div class="modal" tabindex="-1" role="dialog" style={{display: 'inherit'}}>
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">

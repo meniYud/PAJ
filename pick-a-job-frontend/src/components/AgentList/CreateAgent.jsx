@@ -7,19 +7,22 @@ const CreateAgent = (props) => {
     const [userPassword, setUserPassword] = React.useState('');
 
     const onSubmit = (e) => {
+        e.stopPropagation()
         e.stopPropagation();
         if(props.onSubmit){
             props.onSubmit({userName, email: userEmail, password: userPassword});
         }
     }
 
-    const handleClear = () => {
+    const handleClear = (e) => {
+        e.stopPropagation()
         setUserName('');
         setUserEmail('');
         setUserPassword('');
     }
 
     const handleRegret = (e) => {
+        e.stopPropagation()
         if(props.onClose){
             props.onClose(e);
         }
@@ -30,17 +33,12 @@ const CreateAgent = (props) => {
         <div class="modal" tabindex="-1" role="dialog" style={{display: 'inherit'}}>
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    
-                        {/* <Card> */}
                     <div class="modal-header">
                         <h5 class="modal-title">Add User</h5>
                         <button type="button" class="close text-center" data-dismiss="modal" aria-label="Close" onClick={handleRegret}>
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                            {/* <Card.Header className="text-center" onClick={handleRegret}>
-                                "Add User"
-                            </Card.Header> */}
                     <div class="modal-body">
                         <Container className='justify-content-md-center card-body'>
                             <Form onSubmit={(e) => onSubmit(e)}>

@@ -21,7 +21,8 @@ const CreateCompany = (props) => {
         }
     }
 
-    const handleClear = () => {
+    const handleClear = (e) => {
+        e.stopPropagation()
         setUserName('');
         setUserEmail('');
         setUserPassword('');
@@ -32,6 +33,7 @@ const CreateCompany = (props) => {
     }
 
     const handleRegret = (e) => {
+        e.stopPropagation()
         if(props.onClose){
             props.onClose(e);
         }

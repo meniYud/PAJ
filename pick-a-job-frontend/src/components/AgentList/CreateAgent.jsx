@@ -7,19 +7,22 @@ const CreateAgent = (props) => {
     const [userPassword, setUserPassword] = React.useState('');
 
     const onSubmit = (e) => {
+        e.stopPropagation()
         e.stopPropagation();
         if(props.onSubmit){
             props.onSubmit({userName, email: userEmail, password: userPassword});
         }
     }
 
-    const handleClear = () => {
+    const handleClear = (e) => {
+        e.stopPropagation()
         setUserName('');
         setUserEmail('');
         setUserPassword('');
     }
 
     const handleRegret = (e) => {
+        e.stopPropagation()
         if(props.onClose){
             props.onClose(e);
         }

@@ -33,17 +33,12 @@ const CreateAgent = (props) => {
         <div class="modal" tabindex="-1" role="dialog" style={{display: 'inherit'}}>
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    
-                        {/* <Card> */}
                     <div class="modal-header">
                         <h5 class="modal-title">Add User</h5>
                         <button type="button" class="close text-center" data-dismiss="modal" aria-label="Close" onClick={handleRegret}>
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                            {/* <Card.Header className="text-center" onClick={handleRegret}>
-                                "Add User"
-                            </Card.Header> */}
                     <div class="modal-body">
                         <Container className='justify-content-md-center card-body'>
                             <Form onSubmit={(e) => onSubmit(e)}>

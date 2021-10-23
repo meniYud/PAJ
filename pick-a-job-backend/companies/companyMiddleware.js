@@ -4,9 +4,43 @@ import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
 import Role from '../models/roleModel.js'
 
-import {Roles, isPublicRole, isUserPowerAdminRole, getTokenFromRequest, findCreateePropsFromCreator} from '../utils/consts.js'
+import {Roles, isPublicRole, isUserPowerAdminRole, getTokenFromRequest, isUserCompanyAdminRole} from '../utils/consts.js'
 
 const viewCompanyDataProtect = asyncHandler(async (req, res, next) => {
+    try {
+        let token = getTokenFromRequest(req);
+        if (token) {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET)
+            const userDoc = await User.findById(decoded.id).select('-password')
+            const userRoleDoc = await Role.findById(userDoc.role)
+            const userRoleProps = userRoleDoc.toObject();
+            const isUserPowerAdmin = isUserPowerAdminRole(userRoleProps.name);
+            const isUserCompanyAdmin = isUserCompanyAdminRole(userRoleProps.name);
+            
+            if (isUserPowerAdmin) {
+                next();
+            } else if(isUserCompanyAdmin) {
+                const userProps = userDoc.toObject();
+                const userRelEntity = userProps?.relatedEntities;
+                if(userRelEntity?.company){
+                    req.userCompany = userRelEntity?.company.toString();
+                    next();
+                } else {
+                    res.status(401);
+                    throw new Error('Logged in user has no permissions to review company')
+                }
+            } else {
+                res.status(401);
+                throw new Error('Logged in user has no permissions to review company')
+            }
+        } else {
+            res.status(401);
+            throw new Error('Unable to create company due to missing creator token');
+        }
+    } catch (error) {
+        res.status(401);
+        throw new Error(error);
+    }
     next();
 })
 

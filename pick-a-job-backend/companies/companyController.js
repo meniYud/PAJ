@@ -70,8 +70,14 @@ const createCompany = asyncHandler(async (req, res) => {
 // @route   GET /api/companies
 // @access  power admin
 const listCompanies = asyncHandler(async (req, res) => {
+    const restrictions = req.userCompany;
+    let comps = [];
     try{
-        const comps = await Company.find({}).select('-companyPositions -companyAgents -__v');
+        if(restrictions){
+            comps = await Company.findById(restrictions).select('-companyPositions -companyAgents -__v');
+        } else {
+            comps = await Company.find({}).select('-companyPositions -companyAgents -__v');
+        }
         res.json(comps);
     } catch(error) {
         res.status(500);

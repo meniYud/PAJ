@@ -64,12 +64,10 @@ const registerUser = asyncHandler(async (req, res) => {
     let addedToCompany = {success: false};
 
     const userExist = await User.findOne({ email });
-
     if (userExist) {
-        res.status(400)
+        res.status(409)
         throw new Error('user already exist')
     }
-
     let user = await User.create({
         name,
         email,
@@ -142,7 +140,7 @@ const getUsers = asyncHandler(async (req, res) => {
         const users = await User.find({});
         res.json(users);
     } else {
-        const users = await User.find({});
+        const users = [];
         res.json(users);
     }
 });

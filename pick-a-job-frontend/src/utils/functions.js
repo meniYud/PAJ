@@ -7,6 +7,9 @@ export const isLoggedIn = (userInfo) => {
 export const isAdminUser = (userInfo) => {
     return isLoggedIn(userInfo) && userInfo.isUsersAdmin;
 }
+export const isPajAdminUser = (userInfo) => {
+    return isLoggedIn(userInfo) && userInfo.isUsersAdmin && userInfo.Role === 'PAJADMIN';
+}
 export const getPathnameSuffix = (pathname) => {
     const currentPathnameParts = pathname.split('/');
     const suffix = currentPathnameParts[currentPathnameParts.length - 1];

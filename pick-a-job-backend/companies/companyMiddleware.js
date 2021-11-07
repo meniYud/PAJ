@@ -7,7 +7,27 @@ import Role from '../models/roleModel.js'
 import {Roles, isPublicRole, isUserPowerAdminRole, getTokenFromRequest, findCreateePropsFromCreator} from '../utils/consts.js'
 
 const viewCompanyDataProtect = asyncHandler(async (req, res, next) => {
-    next();
+    try {
+        let token = getTokenFromRequest(req);
+        if (token) {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET)
+            const userDoc = await User.findById(decoded.id).select('-password')
+            const userRelatedEntitiesDoc = userDoc.relatedEntities;
+            const userRoleDoc = await Role.findById(userDoc.role)
+            res.locals = {
+                userRole: userRoleDoc?.get('name')?.toString(),
+                userRelatedCompany: userRelatedEntitiesDoc?.get('company')?.toString(),
+            }
+            next();
+        } else {
+            res.status(401);
+            throw new Error('Unable to create company due to missing creator token');
+        }
+    } catch (error) {
+        res.status(401);
+        throw new Error(error);
+    }
+    // next();
 })
 
 const editCompanyDataProtect = asyncHandler(async (req, res, next) => {

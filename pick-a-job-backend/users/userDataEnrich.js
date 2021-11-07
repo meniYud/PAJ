@@ -6,6 +6,7 @@ import Role from '../models/roleModel.js'
 import Company from '../models/companyModel.js';
 
 import {getCompanyDataWithPositions} from '../utils/dataGetters.js'
+import { Roles } from '../utils/consts.js';
 
 const enrichUserData = asyncHandler(async (user) => {
     if (user) {
@@ -26,8 +27,21 @@ const enrichUserData = asyncHandler(async (user) => {
 })
 
 const _getCompanyAgents = asyncHandler(async (id) => {
-    const users = await User.find({relatedEntities: {company: id}, });
-    return users;
+    const users = await User.find({relatedEntities: {company: id}}).select('-password');
+    const compAdminRoleId = await Role.findOne({name: Roles.COMPANYADMIN });
+    const compAgentRoleId = await Role.findOne({name: Roles.COMPANYAGENT });
+    const enrichedUsers = users.map((user) => {
+        const userProps = user.toObject();
+        return {
+            _id: userProps._id,
+            email: userProps.email,
+            name: userProps.name,
+            relatedEntities: userProps.relatedEntities,
+            isCompAdmin: user.get('role').toString() === compAdminRoleId.get('_id').toString(),
+            isCompAgent: user.get('role').toString() === compAgentRoleId.get('_id').toString(),
+        }
+    })
+    return enrichedUsers;
 })
 
 const _setUserAsCompanyAgent = asyncHandler(async (userId, companyId) => {

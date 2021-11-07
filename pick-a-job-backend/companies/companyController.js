@@ -3,7 +3,7 @@ import generateToken from '../utils/generateToken.js';
 import User from '../models/userModel.js'
 import Role from '../models/roleModel.js';
 import Company from '../models/companyModel.js';
-import {Roles} from '../utils/consts.js';
+import {Roles, isUserPowerAdminRole} from '../utils/consts.js';
 import {_setUserAsCompanyAgent} from '../users/userDataEnrich.js';
 
 
@@ -71,7 +71,13 @@ const createCompany = asyncHandler(async (req, res) => {
 // @access  power admin
 const listCompanies = asyncHandler(async (req, res) => {
     try{
-        const comps = await Company.find({}).select('-companyPositions -companyAgents -__v');
+        const {locals: {userRelatedCompany, userRole}} = res;
+        let comps = [];
+        if(isUserPowerAdminRole(userRole)){
+            comps = await Company.find({}).select('-companyPositions -companyAgents -__v');
+        } else if(userRelatedCompany) {
+            comps = [await Company.findById(userRelatedCompany).select('-companyPositions -companyAgents -__v')];
+        }
         res.json(comps);
     } catch(error) {
         res.status(500);

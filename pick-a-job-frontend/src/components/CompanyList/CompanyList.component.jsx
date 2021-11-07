@@ -7,6 +7,7 @@ import Loader from '../Loader';
 import Message from '../Message';
 import { listAllCompanies, addNewCompany } from '../../api/companyApi/actions';
 import CreateCompany from './CreateCompany';
+import {isPajAdminUser, isAdminUser} from '../../utils/functions';
 
 export default function CompanyList() {
     const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export default function CompanyList() {
 
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo } = userLogin;
+    const isCompanyCreator = isPajAdminUser(userInfo)
 
 
     const createCompanyHandler = (e) => {
@@ -54,13 +56,13 @@ export default function CompanyList() {
     return (
         <div className="paj-companies-wrapper">
             <Container>
-                {addCompany && <CreateCompany onSubmit={submitNewCompany} onClose={createCompanyHandler} />}
+                {isCompanyCreator && addCompany && <CreateCompany onSubmit={submitNewCompany} onClose={createCompanyHandler} />}
                 <Row>
                     <Col>
                       <h1>Companies</h1>
                     </Col>
                     <Col md={4}>
-                        {<div onClick={(e) => createCompanyHandler(e)} className='add-job'>
+                        {<div onClick={isCompanyCreator ? (e) => createCompanyHandler(e) : (e) => {}} className={`add-job ${isCompanyCreator ? '' : ' disabled'}`}>
                             <i className="fas fa-plus-circle mr-2"></i>
                             <span>Add New Company</span>
                         </div>}
@@ -76,7 +78,6 @@ export default function CompanyList() {
                                 <th>NAME</th>
                                 <th>CV EMAIL</th>
                                 <th>DESCRIPTION</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -86,21 +87,21 @@ export default function CompanyList() {
                                     <td>{comp.companyName}</td>
                                     <td>{comp.cvsEmail}</td>
                                     <td>{comp.companyDescription}</td>
-                                    <td>{userInfo.admin ? (
+                                    {/* <td>{userInfo.admin ? (
                                         <i className='fas fa-check' style={{ color: 'green' }} />
                                     ) : (
                                             <i className='fas fa-times' style={{ color: 'red' }} />
                                         )}</td>
                                     <td>
-                                        {/* <LinkContainer to={`/user/${user._id}/edit`}>
+                                        <LinkContainer to={`/user/${user._id}/edit`}>
                                             <Button variant='light' className='btn-sm'>
                                                 <i className='fas fa-edit' />
                                             </Button>
-                                        </LinkContainer> */}
-                                        {/* <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(user._id)}>
+                                        </LinkContainer>
+                                        <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(user._id)}>
                                             <i className='fas fa-trash' />
-                                        </Button> */}
-                                    </td>
+                                        </Button>
+                                    </td> */}
                                 </tr>
                             ))}
                         </tbody>

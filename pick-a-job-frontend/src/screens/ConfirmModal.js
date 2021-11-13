@@ -22,14 +22,14 @@ const ConfirmModal = (props) => {
                 <div className="modal-content">
                 <div className="modal-header">
                     <h5 className="modal-title">Attention</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div className="modal-body">
                     <p>{props?.message ? props?.message : "Are you sure?"}</p>
                 </div>
-                <div class="modal-footer">
+                <div className="modal-footer">
                     <button type="button" className="btn btn-primary" onClick={onConfirm}>OK</button>
                     <button type="button" className="btn btn-secondary" onClick={onDecline} data-dismiss="modal">Cancel</button>
                 </div>

@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.route('/').get(getPositions).post(protectCreatePosition, createPosition)
 
-router.route('/:id').get(getPositionsByCompany).put(updatePosition).delete(protectUpdatePosition, deletePositionMiddleware, updatePosition)
+router.route('/:id').get(getPositionsByCompany).put(protectUpdatePosition, updatePosition).delete(protectUpdatePosition, deletePositionMiddleware, updatePosition)
 
 
 

@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 import asyncHandler from 'express-async-handler'
 import Company from '../models/companyModel.js';
 import Position from '../models/positionModel.js'
-import {enrichPositionData} from './positionDataEnrich.js'
+import {enrichPositionData} from './positionDataEnrich.js';
+import { PositionStatus } from '../utils/consts.js';
 
 // @desc    Fetch all positions
 // @route   GET /api/positions
@@ -42,7 +43,7 @@ const getPositionsByCompany = asyncHandler (async (req, res) => {
 const createPosition = asyncHandler (async (req, res) => {
     const {
         offeredReward,
-        positionStatus,
+        positionStatus = PositionStatus.ACTIVE,
         offeringCompany,
         offeringAgent,
         positionDisplayId,

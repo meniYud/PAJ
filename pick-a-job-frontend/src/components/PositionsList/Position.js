@@ -46,15 +46,13 @@ const Position = ({positionID, positionProps}) => {
         e.stopPropagation();
         setEditPosition(true);
     };
-    const onDeletePosition = (e) => {
-        e.stopPropagation();
-    };
     const onPromotePosition = (e) => {
         e.stopPropagation();
     };
 
-    const handleSubmitUpdatedPosition = (payload) => {
-        dispatch(updatePositionByPositionID(_id, payload));
+    const handleSubmitUpdatedPosition = async (payload) => {
+        await dispatch(updatePositionByPositionID(_id, payload));
+        reloadData();
     }
 
     const handleSubmitDeletedPosition = async (payload) => {

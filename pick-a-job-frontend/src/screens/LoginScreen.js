@@ -69,12 +69,12 @@ export default function LoginScreen({ location, history }) {
                             </Form>
                     
                             <Row className='py-3'>
-                            <Col>
+                            {/* <Col>
                                 New Customer? 
                                 <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
                                     Register
                                 </Link>
-                            </Col>
+                            </Col> */}
                         </Row>
                         </FormContainer>
                     )

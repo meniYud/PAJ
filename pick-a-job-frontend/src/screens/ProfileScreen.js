@@ -4,6 +4,7 @@ import { Row, Col, Button, Form, Container} from 'react-bootstrap';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { getUserDetails, updateUserProfile } from '../api/userApi/actions';
+import {isNullish} from '../utils/functions';
 
 export default function ProfileScreen({ location, history }) {
     const [name, setName] = useState('');
@@ -11,6 +12,7 @@ export default function ProfileScreen({ location, history }) {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState(null);
+    const [enablePasswordChange, setEnablePasswordChange] = useState(false)
     
     const dispatch = useDispatch();
 
@@ -27,28 +29,45 @@ export default function ProfileScreen({ location, history }) {
         if(!userInfo) {
             history.push('/login');
         } else {
-            if(!user || !user.name || success) {
+            if(!user || !user.name) {
                 dispatch(getUserDetails('profile'))
             } else {
                 setName(user.name);
                 setEmail(user.email);
+            }
+            if(success && name === user.name && email === user.email){
+                dispatch(getUserDetails('profile'))
+                setEnablePasswordChange(false)
+                setPassword('')
+                setConfirmPassword('')
             }
         }
     }, [dispatch, history, userInfo, user, success])
 
     const submitHandler = (e) => {
         e.preventDefault();
-        if(password !== confirmPassword) {
+        if((password !== confirmPassword) && (enablePasswordChange)) {
             setMessage('Password do not match')
         } else {
             dispatch(updateUserProfile({
                 id: user._id,
                 name,
                 email,
-                password
+                ...(enablePasswordChange && {password})
             }))
         }
     };
+
+    const onPasswordSwitchChange = (e) => {
+        setEnablePasswordChange(e.currentTarget.checked)
+    }
+
+    const shouldEnableUpdateButton = () => {
+        const passwordIsOk = (password === confirmPassword) || !enablePasswordChange;
+        const emailOk = !isNullish(email)
+        const nameOk = !isNullish(name)
+        return passwordIsOk && emailOk && nameOk;
+    }
 
     return (
         <Container>
@@ -81,13 +100,17 @@ export default function ProfileScreen({ location, history }) {
                         >
                         </Form.Control>
                     </Form.Group>
-
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="customSwitch1" onClick={onPasswordSwitchChange} checked={enablePasswordChange} />
+                        <label class="custom-control-label" for="customSwitch1">Change password</label>
+                    </div>
                     <Form.Group controlId='password'>
                         <Form.Label>Password</Form.Label>
                         <Form.Control
                             type='password'
                             placeholder='Enter Password'
                             value={password}
+                            disabled={!enablePasswordChange}
                             onChange={(e) => setPassword(e.target.value)}
                         >
                         </Form.Control>
@@ -99,12 +122,13 @@ export default function ProfileScreen({ location, history }) {
                             type='password'
                             placeholder='Confirm Password'
                             value={confirmPassword}
+                            disabled={!enablePasswordChange}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         >
                         </Form.Control>
                     </Form.Group>
                 
-                    <Button type='submit' variant='primary'>
+                    <Button type='submit' variant='primary' disabled={!shouldEnableUpdateButton()}>
                         Update
                     </Button>
                 </Form>

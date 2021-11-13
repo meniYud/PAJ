@@ -90,7 +90,7 @@ export default function CreatePosition(props) {
                                 Display ID
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control type="text" defaultValue={displayID} onChange={(e) => {setDisplayID(e?.target?.value)}} />
+                                <Form.Control type="text" value={displayID} onChange={(e) => {setDisplayID(e?.target?.value)}} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} controlId="formtextPositionName">
@@ -98,7 +98,7 @@ export default function CreatePosition(props) {
                                 Position Name
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control type="text" defaultValue={positionName} onChange={(e) => {setPositionName(e?.target?.value)}} />
+                                <Form.Control type="text" value={positionName} onChange={(e) => {setPositionName(e?.target?.value)}} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} controlId="formtextSubPositionName">
@@ -106,7 +106,7 @@ export default function CreatePosition(props) {
                                 Sub Position Name
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control type="text" defaultValue={subPositionName} onChange={(e) => {setSubPositionName(e?.target?.value)}} />
+                                <Form.Control type="text" value={subPositionName} onChange={(e) => {setSubPositionName(e?.target?.value)}} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} controlId="formtextPositionDescription">
@@ -114,7 +114,7 @@ export default function CreatePosition(props) {
                                 Position Description
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control as="textarea" rows={3} defaultValue={positionDescription} onChange={(e) => {setPositionDescription(e?.target?.value)}} />
+                                <Form.Control as="textarea" rows={3} value={positionDescription} onChange={(e) => {setPositionDescription(e?.target?.value)}} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} controlId="formtextPositionLocation">
@@ -122,7 +122,7 @@ export default function CreatePosition(props) {
                                 Position Location
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control type="text" defaultValue={positionLocation} onChange={(e) => {setPositionLocation(e?.target?.value)}} />
+                                <Form.Control type="text" value={positionLocation} onChange={(e) => {setPositionLocation(e?.target?.value)}} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} controlId="formtextRequiredExperience">
@@ -130,7 +130,7 @@ export default function CreatePosition(props) {
                                 Required Experience
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control type="text" defaultValue={requiredExperience} onChange={(e) => {setRequiredExperience(e?.target?.value)}} />
+                                <Form.Control type="text" value={requiredExperience} onChange={(e) => {setRequiredExperience(e?.target?.value)}} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} controlId="formtextOfferedReward">
@@ -138,7 +138,7 @@ export default function CreatePosition(props) {
                                 Offered Reward (NIS)
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control type="number" defaultValue={offeredReward} onChange={(e) => {setOfferedReward(e?.target?.value)}} />
+                                <Form.Control type="number" value={offeredReward} onChange={(e) => {setOfferedReward(e?.target?.value)}} />
                             </Col>
                         </Form.Group>
                         <div className='create-position-footer'>

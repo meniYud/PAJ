@@ -15,3 +15,6 @@ export const getPathnameSuffix = (pathname) => {
     const suffix = currentPathnameParts[currentPathnameParts.length - 1];
     return suffix;
 }
+export const isNullish = (item) => {
+    return !item || item === '' || item === ' ';
+}

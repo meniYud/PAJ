@@ -92,7 +92,7 @@ export default function RegisterScreen({ location, history }) {
                             </Form.Control>
                         </Form.Group>
                         
-                        <Button type='submit' varriant='primary'>
+                        <Button type='submit' varriant='primary' disabled>
                             Register
                         </Button>
                     </Form>

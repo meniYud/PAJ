@@ -9,7 +9,7 @@ const Footer = (props) => {
             <Container>
                 <Row>
                     <Col className='text-center py-3'>
-                        Copyright &copy; Pick-A-Job
+                        Copyright &copy; Pick-a-Job
                     </Col>
                 </Row>
             </Container>

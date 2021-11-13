@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
+import {isNullish} from '../../utils/functions';
 
 const CreateAgent = (props) => {
     const [userName, setUserName] = React.useState('');
@@ -26,6 +27,13 @@ const CreateAgent = (props) => {
         if(props.onClose){
             props.onClose(e);
         }
+    }
+
+    const disableSubmition = () => {
+        const userNameIsNullish = isNullish(userName)
+        const userEmailIsNullish = isNullish(userEmail)
+        const userPasswordIsNullish = isNullish(userPassword)
+        return userNameIsNullish || userEmailIsNullish || userPasswordIsNullish;
     }
     
 
@@ -74,7 +82,7 @@ const CreateAgent = (props) => {
                                 </Form.Group>
                                 
                                 <div className='create-position-footer'>
-                                    <Button type='submit' variant='primary'>
+                                    <Button type='submit' variant='primary' disabled={disableSubmition()}>
                                         Create User
                                     </Button>
                                     <Button variant='light' className="pull-right" onClick={(e) => handleClear(e)}>

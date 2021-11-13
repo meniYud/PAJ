@@ -16,6 +16,7 @@ const {
     USER_UPDATE_PROFILE_REQUEST,
     USER_UPDATE_PROFILE_SUCCESS,
     USER_UPDATE_PROFILE_FAIL,
+    USER_UPDATE_PROFILE_DONE,
     USER_LIST_REQUEST,
     USER_LIST_SUCCESS,
     USER_LIST_FAIL,
@@ -174,7 +175,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
         const { userLogin: { userInfo } } = getState();
         dispatch({
             type: USER_DETAILS_REQUEST
-        })
+        }) 
 
         const config = {
             headers: {
@@ -191,6 +192,9 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
         dispatch({
             type: USER_DETAILS_SUCCESS,
             payload: data
+        });
+        dispatch({
+            type: USER_UPDATE_PROFILE_DONE,
         });
 
     } catch (error) {

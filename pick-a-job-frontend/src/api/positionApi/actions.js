@@ -12,6 +12,9 @@ const {
     UPDATE_POSITION_REQUEST,
     UPDATE_POSITION_SUCCESS,
     UPDATE_POSITION_FAIL,
+    CREATE_POSITION_REQUEST,
+    CREATE_POSITION_SUCCESS,
+    CREATE_POSITION_FAIL
 } = positionActions;
 
 
@@ -69,7 +72,40 @@ export const updatePositionByPositionID = (positionID, payload) => async (dispat
     }
 }
 
-export const deletePositionByID = (positionID, payload) => async (dispatch, getState) => {
+export const createNewPosition = (payload) => async (dispatch, getState) => {
+    try {
+        const url = `/api/positions/`;
+        const { userLogin: { userInfo } } = getState();
+        dispatch({
+            type: CREATE_POSITION_REQUEST
+        })
+
+        const offeringAgent = userInfo._id;
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data = {} } = await axios.post(url, {...payload, offeringAgent}, config);
+
+        dispatch({
+            type: CREATE_POSITION_SUCCESS,
+            payload: {data}
+        });
+    } catch (error) {
+        dispatch({
+            type: CREATE_POSITION_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+    }
+}
+
+export const deletePositionByID = (positionID) => async (dispatch, getState) => {
     try {
         const url = `/api/positions/${positionID}`;
         const { userLogin: { userInfo } } = getState();
@@ -85,7 +121,7 @@ export const deletePositionByID = (positionID, payload) => async (dispatch, getS
             }
         }
 
-        const { data = {} } = await axios.put(url, {...payload, positionStatus: 'DELETED'}, config);
+        const { data = {} } = await axios.put(url, {positionStatus: 'DELETED'}, config);
 
         dispatch({
             type: UPDATE_POSITION_SUCCESS,

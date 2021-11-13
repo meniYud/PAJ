@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Card, Row, Col, Button, Form, Container } from 'react-bootstrap';
+import { createNewPosition, listPositions } from '../../api/positionApi/actions';
 
 export default function CreatePosition(props) {
     const {
         company = {},
         agentName = '',
+        agentID = '',
         removeCreatePosition,
         initialData = {},
-        handleSubmit = () => {},
+        handleSubmit,
         title = 'Create New Position' } = props;
     
     const [displayID, setDisplayID] = useState(initialData?.displayID || '');
@@ -18,11 +21,15 @@ export default function CreatePosition(props) {
     const [requiredExperience, setRequiredExperience] = useState(initialData?.requiredExperience || '');
     const [offeredReward, setOfferedReward] = useState(initialData?.offeredReward || 0);
 
-    const onSubmit = (e) => {
+    const dispatch = useDispatch();
+
+    const onSubmit = async (e) => {
         e.stopPropagation();
         e.preventDefault();
         const payload = {
-            displayID,
+            offeringCompany: company._id,
+            offeringAgent: agentID,
+            positionDisplayId: displayID,
             positionName,
             subPositionName,
             positionDescription,
@@ -30,14 +37,24 @@ export default function CreatePosition(props) {
             requiredExperience,
             offeredReward
         };
-        handleSubmit(payload);
-        console.log('submitted');
+        if (handleSubmit) {
+            await handleSubmit(payload)
+        } else {
+            await dispatch(createNewPosition(payload))
+        }
+        await dispatch(listPositions(company._id))
         removeCreatePosition();
     }
 
     const handleClear = (e) => {
         e.stopPropagation();
-        console.log('cleared');
+        setDisplayID('');
+        setPositionName('');
+        setSubPositionName('');
+        setPositionDescription('');
+        setPositionLocation('');
+        setRequiredExperience('');
+        setOfferedReward(0);
     }
 
 
@@ -46,7 +63,7 @@ export default function CreatePosition(props) {
             <Card>
                 <Card.Header className="text-center">
                     <span>{title}</span>
-                    <button type="button" class="close text-center" data-dismiss="modal" aria-label="Close" onClick={removeCreatePosition}>
+                    <button type="button" className="close text-center" data-dismiss="modal" aria-label="Close" onClick={removeCreatePosition}>
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </Card.Header>

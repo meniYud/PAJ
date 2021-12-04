@@ -1,4 +1,5 @@
 /* paj = pick a job */
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 .paj-nav {
     height: var(--nav-h);
     background-color: var(--cw);
@@ -126,6 +127,7 @@
 
 .paj-page-header .paj-contact-form .btn {
     border-radius: 15px;
+    margin-left: auto;
 }
 
 .main-cta {
@@ -226,8 +228,8 @@
 }
 
 .paj-guest-dashboard .paj-hero .hero-text p {
-    opacity: 0.8;
-    font-size: 1.5rem;
+    opacity: 1;
+    font-size: 1.7rem;
     margin-bottom: 0.2rem;
     font-weight: 200;
 }
@@ -361,11 +363,65 @@
 }
 
 .paj-guest-dashboard .paj-cards .card h2 {
-    font-size: 2.1rem;
+    font-size: 2.3rem;
+    text-align: center;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
 }
+
+
+.paj-guest-dashboard .paj-cards .card mark {
+    font-family: 'Righteous', cursive;
+    font-size: 1.9rem;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    background: none;
+    margin-right: 5px;
+    font-weight: 400;
+}
+.paj-guest-dashboard .paj-cards .card mark span {
+    color: var(--c1);
+}
+
 
 .paj-guest-dashboard .paj-cards .card p {
     font-size: 1.1rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.paj-guest-dashboard .paj-cards .card .paj-card-btn {
+    --r: -2deg;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+}
+
+.paj-guest-dashboard .paj-cards .card .paj-card-btn::before {
+    content: "";
+    width: 120%;
+    height: 15%;
+    background: var(--c1);
+    position: absolute;
+    opacity: .5;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-2deg);
+    z-index: -1;
+    transition:cubic-bezier(1, 0, 0, 1) all .2s;
+}
+
+.paj-guest-dashboard .paj-cards .card:hover .paj-card-btn {
+    text-decoration: none;
+}
+.paj-guest-dashboard .paj-cards .card:hover .paj-card-btn::before {
+    height: 100%;
+    top: 50%;
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg);
 }
 
 .paj-guest-dashboard .paj-cards .card .icon.icon-1 {
@@ -535,6 +591,7 @@
 }
 .paj-agent-dashboard .sub-header .input-group .form-control {
     border-radius: 30px;
+    font-size: 20px;
 }
 .paj-agent-dashboard .sub-header .input-group .btn {
     padding: 0;
@@ -638,6 +695,7 @@
     border-radius: 10px;
     box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
     margin-bottom: 10px;
+    font-size: 1.2rem;
     background: var(--cw);
 }
 .paj-agent-dashboard .list .createJob {
@@ -692,10 +750,15 @@
     justify-content: center;
     align-items: center;
     font-size: 20px;
-    padding: 20px;
     color: var(--cw);
     cursor: pointer;
     margin: 20px 0;
+ }
+ .paj-agent-dashboard .tabs .paj-add-user-wrapper .add-job.disabled,
+ .paj-agent-dashboard .tabs .paj-companies-wrapper .add-job.disabled {
+    background: var(--c3);
+    opacity: .1;
+    pointer-events: none;
  }
  .paj-agent-dashboard .tabs .paj-add-user-wrapper .table-responsive,
  .paj-agent-dashboard .tabs .paj-companies-wrapper .table-responsive{
@@ -763,11 +826,11 @@
 .paj-agent-dashboard .create-position-footer {
     display: flex;
     flex-direction: row-reverse;
-    margin-bottom: 20px;
 }
 
 .paj-agent-dashboard .create-position-footer .btn {
    border-radius: 15px;
+   margin-left: 15px;
 }
 
 .paj-agent-dashboard .actios {
@@ -832,9 +895,29 @@
 
 .paj-footer {
     background: var(--c3);
-    padding: 10rem 0;
+    padding: 5rem 0;
     color: var(--cw);
 }
 
-  
-  
+.form-label {
+    color: var(--c3);
+    font-weight: 400;
+    font-size: 4vw;
+}
+
+@media (min-width: 992px) {
+    .form-label {
+        font-size: 1.3rem;
+    }
+}
+.modal-header {
+    display: flex;
+    align-items: center;
+}
+.modal-title {
+    font-size: 1.6rem;
+}
+
+.hidden {
+    display: none !important;
+}
